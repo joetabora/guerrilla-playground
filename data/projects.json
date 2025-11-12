@@ -4,8 +4,8 @@
     "description": "An AI bedtime story generator with interactive tales for children.",
     "tech": ["Next.js", "Vercel", "OpenRouter"],
     "image": "/bedtimebeacon.png",
-    "url": "https://storynest.vercel.app",
-    "liveUrl": "https://storynest.vercel.app",
+    "url": "https://bedtime-beacon.vercel.app",
+    "liveUrl": "https://bedtime-beacon.vercel.app",
     "category": "AI",
     "featured": true
   },
