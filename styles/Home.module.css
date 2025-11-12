@@ -1,8 +1,7 @@
 /* 
- * HOMEPAGE STYLES - Futuristic Dark Theme
+ * HOMEPAGE STYLES - Bold Studio Theme
  * 
- * Full-width hero section with dark gradient background.
- * Clean project grid with proper spacing and alignment.
+ * Oversized typography, confident spacing, and strong orange accents.
  */
 
 .page {
@@ -16,22 +15,72 @@
   background: var(--bg-primary);
 }
 
-/* Hero section with dark gradient background */
+/* Hero section */
 .hero {
-  text-align: center;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 112px 24px 72px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.heroBadge {
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.heroDisplay {
+  margin: 0;
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  line-height: 0.95;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  color: var(--text-primary);
+  text-transform: uppercase;
+}
+
+.heroAccent {
+  display: block;
+  color: var(--accent-primary);
+}
+
+.heroSubtitle {
+  max-width: 720px;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.heroMeta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 24px;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 80px 24px 60px;
-  position: relative;
-  /* Dark gradient background with subtle geometric pattern */
-  background: 
-    radial-gradient(circle at 30% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 70% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
-    linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  width: 100%;
+  margin-top: 16px;
+}
+
+.heroMeta div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.heroMeta span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: var(--text-muted);
+  text-transform: uppercase;
 }
 
 .projectsSection {
@@ -43,8 +92,8 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 36px;
   width: 100%;
   padding: 0;
 }
@@ -134,7 +183,7 @@
 
 .socials {
   display: flex;
-  gap: 32px;
+  gap: 36px;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -142,8 +191,8 @@
 .socials a {
   color: var(--text-secondary);
   text-decoration: none;
-  font-weight: 500;
-  font-size: 0.95rem;
+  font-weight: 600;
+  font-size: 0.9rem;
   letter-spacing: 0.02em;
   transition: all 0.3s ease;
   position: relative;
@@ -157,12 +206,12 @@
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--accent-primary), var(--accent-cyan));
+  background: var(--accent-gradient);
   transition: width 0.3s ease;
 }
 
 .socials a:hover {
-  color: var(--text-primary);
+  color: var(--accent-primary);
 }
 
 .socials a:hover::after {
@@ -179,16 +228,16 @@
 
 @media (max-width: 768px) {
   .hero {
-    padding: 60px 20px 40px;
+    padding: 88px 20px 56px;
   }
 
   .projectsSection {
-    padding: 40px 20px;
+    padding: 48px 20px;
   }
 
   .grid {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 28px;
   }
 
   .socials {

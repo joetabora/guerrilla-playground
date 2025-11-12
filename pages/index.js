@@ -72,17 +72,44 @@ export default function Home() {
         <FeaturedCarousel projects={projectsData} />
 
         {/* Hero section */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
+        <motion.section
+          initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          transition={{ duration: 0.9, ease: 'easeOut' }}
           className={styles.hero}
         >
-          <h1 className={styles.title}>Guerrilla Social Club</h1>
-          <p className={styles.subtitle}>
-            A playground of ideas by Joseph Tabora
+          <div className={styles.heroBadge}>CREATIVE PLAYGROUND — 2025</div>
+
+          <motion.h1
+            className={styles.heroDisplay}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.8, ease: 'easeOut' }}
+          >
+            <span className={styles.heroAccent}>Guerrilla</span>
+            Social Club
+          </motion.h1>
+
+          <p className={styles.heroSubtitle}>
+            We build experimental AI products and pixel-perfect launch experiences
+            for makers, dreamers, and unapologetic creatives.
           </p>
-        </motion.div>
+
+          <div className={styles.heroMeta}>
+            <div>
+              <span>Focus</span>
+              Creative AI tools · Immersive storytelling · Launch platforms
+            </div>
+            <div>
+              <span>Studios</span>
+              San Francisco · Manila · Remote first
+            </div>
+            <div>
+              <span>Status</span>
+              Accepting select collaborations & playground partners
+            </div>
+          </div>
+        </motion.section>
 
         {/* Filter bar */}
         <FilterBar
@@ -137,7 +164,7 @@ export default function Home() {
           </AnimatePresence>
         </section>
 
-        {/* Social links displayed in a pastel footer */}
+        {/* Minimal footer with studio links */}
         <footer className={styles.footer}>
           <nav aria-label="Social links" className={styles.socials}>
             <a href="https://github.com" target="_blank" rel="noopener noreferrer">
@@ -151,7 +178,7 @@ export default function Home() {
             </a>
           </nav>
           <p className={styles.footerNote}>
-            Crafted with curiosity, storybook vibes, and a dash of code magic.
+            Guerrilla Social Club © {new Date().getFullYear()} · Built with imaginative code & restless curiosity.
           </p>
         </footer>
       </main>

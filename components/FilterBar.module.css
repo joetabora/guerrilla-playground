@@ -16,8 +16,8 @@
 .filterButton {
   padding: 10px 24px;
   border-radius: 999px;
-  border: 1px solid var(--glass-border);
-  background: var(--glass-bg);
+  border: 1px solid var(--border-subtle);
+  background: rgba(20, 20, 22, 0.85);
   backdrop-filter: blur(20px);
   color: var(--text-secondary);
   font-size: 0.9rem;
@@ -25,26 +25,26 @@
   letter-spacing: 0.02em;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
 }
 
 .filterButton:hover {
-  background: rgba(0, 212, 255, 0.1);
-  border-color: var(--accent-primary);
+  background: rgba(255, 77, 0, 0.12);
+  border-color: rgba(255, 77, 0, 0.4);
   color: var(--text-primary);
-  box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+  box-shadow: 0 0 20px rgba(255, 77, 0, 0.25);
   transform: translateY(-2px);
 }
 
 .filterButtonActive {
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-cyan));
-  color: var(--text-primary);
-  border-color: var(--accent-primary);
+  background: var(--accent-gradient);
+  color: var(--bg-primary);
+  border-color: transparent;
   box-shadow: var(--glow-primary);
 }
 
 .filterButtonActive:hover {
-  box-shadow: 0 0 25px rgba(0, 212, 255, 0.5);
+  box-shadow: 0 18px 36px rgba(255, 77, 0, 0.35);
   transform: translateY(-2px);
 }
 
