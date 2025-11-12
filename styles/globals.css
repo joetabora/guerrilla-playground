@@ -1,0 +1,59 @@
+/* Import whimsical sans-serif font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+
+:root {
+  --background: #f4f2ff;
+  --text-primary: #3c2d5c;
+  --text-secondary: #5c4f7c;
+  --text-accent: #715cbb;
+  --accent: #7f73ff;
+  --accent-secondary: #8dc6ff;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--background);
+  color: var(--text-primary);
+}
+
+body {
+  line-height: 1.4;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* Smooth fades between pages */
+.page-transition-enter {
+  opacity: 0.01;
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-out;
+}
+
+.page-transition-exit {
+  opacity: 1;
+}
+
+.page-transition-exit-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-out;
+}
+

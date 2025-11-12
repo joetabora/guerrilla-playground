@@ -1,0 +1,91 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, rgba(238, 229, 255, 0.85), rgba(214, 228, 255, 0.9));
+  border-radius: 22px;
+  box-shadow: 0 16px 40px rgba(124, 107, 255, 0.18);
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(163, 146, 255, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 20px 45px rgba(124, 107, 255, 0.26);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 65%;
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+}
+
+.title {
+  font-size: 1.35rem;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+.description {
+  font-size: 0.98rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.techList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.techItem {
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-accent);
+  letter-spacing: 0.04em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 4px 12px rgba(144, 120, 255, 0.16);
+}
+
+.launchButton {
+  align-self: flex-start;
+  text-decoration: none;
+  background: linear-gradient(120deg, var(--accent), var(--accent-secondary));
+  color: white;
+  padding: 12px 22px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 12px 24px rgba(126, 113, 255, 0.35);
+}
+
+.launchButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 32px rgba(126, 113, 255, 0.42);
+}
+
+.launchButton:focus {
+  outline: 3px solid rgba(126, 113, 255, 0.4);
+  outline-offset: 4px;
+}
+
