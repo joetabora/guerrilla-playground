@@ -10,23 +10,13 @@
     "featured": true
   },
   {
-    "title": "Pushr",
-    "description": "A simple sales tracking app for reps with reminders and customer notes.",
-    "tech": ["React", "Firebase"],
-    "image": "/pushr.png",
-    "url": "https://pushr.vercel.app",
-    "liveUrl": "https://pushr.vercel.app",
-    "category": "Web App",
+    "title": "Gravity Gauntlet",
+    "description": "A fast-paced arena prototype built with React, TypeScript, and Vite.",
+    "tech": ["React", "TypeScript", "Vite"],
+    "image": "/gravitygauntlet.png",
+    "url": "https://github.com/joetabora/GravityGauntlet",
+    "category": "Game",
     "featured": true
-  },
-  {
-    "title": "Guerrilla Prototype Lab",
-    "description": "An experimental space for remixing AI models and code snippets in real time.",
-    "tech": ["Next.js", "OpenAI API", "Supabase"],
-    "image": "/guerrillalab.png",
-    "url": "https://example.com/guerrilla-lab",
-    "category": "Experimental",
-    "featured": false
   }
 ]
 
