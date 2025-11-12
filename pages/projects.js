@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
+import Navbar from '../components/Navbar';
 import ProjectCard from '../components/ProjectCard';
 import FilterBar from '../components/FilterBar';
 import styles from '../styles/Projects.module.css';
@@ -42,6 +43,9 @@ export default function Projects() {
       </Head>
 
       <main className={styles.page}>
+        {/* Minimal navigation bar */}
+        <Navbar />
+
         <header className={styles.header}>
           <h1 className={styles.title}>Project Launchpad</h1>
           <p className={styles.subtitle}>

@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
+import Navbar from '../components/Navbar';
 import FeaturedCarousel from '../components/FeaturedCarousel';
 import FilterBar from '../components/FilterBar';
 import ProjectCard from '../components/ProjectCard';
@@ -61,6 +62,9 @@ export default function Home() {
         />
       </Head>
       <main className={styles.page}>
+        {/* Minimal navigation bar */}
+        <Navbar />
+
         {/* Optional music player in top-right corner */}
         <MusicPlayer />
 

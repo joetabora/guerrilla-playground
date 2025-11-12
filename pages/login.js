@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import Navbar from '../components/Navbar';
 import styles from '../styles/Login.module.css';
 
 /**
@@ -20,6 +21,9 @@ export default function Login() {
       </Head>
 
       <main className={styles.page}>
+        {/* Minimal navigation bar */}
+        <Navbar />
+
         <section className={styles.card} aria-labelledby="login-heading">
           <h1 id="login-heading" className={styles.title}>
             Guerrilla Social Club Members

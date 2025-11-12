@@ -1,42 +1,51 @@
+/* 
+ * FILTER BAR - Futuristic Dark Theme
+ * 
+ * Minimal pill-style buttons with glassmorphism and neon accents.
+ */
+
 .filterBar {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   justify-content: center;
-  margin-bottom: 32px;
-  padding: 0 16px;
+  margin-bottom: 48px;
+  padding: 0 24px;
 }
 
 .filterButton {
-  padding: 10px 20px;
+  padding: 10px 24px;
   border-radius: 999px;
-  border: 2px solid rgba(163, 146, 255, 0.4);
-  background: rgba(255, 255, 255, 0.6);
-  color: var(--text-accent);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  color: var(--text-secondary);
   font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
+  font-weight: 500;
+  letter-spacing: 0.02em;
   cursor: pointer;
   transition: all 0.3s ease;
-  backdrop-filter: blur(4px);
-  box-shadow: 0 4px 12px rgba(124, 107, 255, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .filterButton:hover {
-  background: rgba(255, 255, 255, 0.8);
-  border-color: var(--accent);
-  box-shadow: 0 6px 16px rgba(124, 107, 255, 0.2);
+  background: rgba(0, 212, 255, 0.1);
+  border-color: var(--accent-primary);
+  color: var(--text-primary);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+  transform: translateY(-2px);
 }
 
 .filterButtonActive {
-  background: linear-gradient(120deg, var(--accent), var(--accent-secondary));
-  color: white;
-  border-color: var(--accent);
-  box-shadow: 0 8px 20px rgba(126, 113, 255, 0.35);
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-cyan));
+  color: var(--text-primary);
+  border-color: var(--accent-primary);
+  box-shadow: var(--glow-primary);
 }
 
 .filterButtonActive:hover {
-  box-shadow: 0 10px 24px rgba(126, 113, 255, 0.42);
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.5);
+  transform: translateY(-2px);
 }
 
 @media (max-width: 640px) {

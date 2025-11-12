@@ -1,8 +1,8 @@
 # Guerrilla Playground
 
-Welcome to **Guerrilla Playground**, a whimsical portfolio hub and project launcher for Joseph Tabora's creative AI and app experiments.
+Welcome to **Guerrilla Playground**, a modern, futuristic portfolio hub and project launcher for Joseph Tabora's creative AI and app experiments.
 
-The experience embraces a storybook-meets-tech aesthetic, comes packed with Framer Motion animations, and stays responsive across devices. Now featuring **live previews**, **featured project carousels**, **category filtering**, and optional background music.
+The experience features a sleek dark mode aesthetic with neon accents, glassmorphism effects, and smooth Framer Motion animations. Includes **live previews**, **featured project carousels**, **category filtering**, and optional background music.
 
 ---
 
@@ -29,9 +29,157 @@ The experience embraces a storybook-meets-tech aesthetic, comes packed with Fram
 - `components/FeaturedCarousel.jsx` – Rotating carousel for featured projects  
 - `components/FilterBar.jsx` – Category filter buttons with smooth animations  
 - `components/MusicPlayer.jsx` – Optional background music player with mute toggle  
+- `components/Navbar.jsx` – Minimal navigation bar with glassmorphism  
 - `styles/` – CSS modules and global theme settings  
 - `public/` – Project images and assets  
 - `data/projects.json` – Project data with new fields for previews, categories, and featured status  
+
+---
+
+## 🎨 Customization Guide
+
+The design uses CSS variables for easy customization. All colors, fonts, and effects can be adjusted in one place.
+
+### Changing Colors
+
+Edit `/styles/globals.css` and update the CSS variables in the `:root` selector:
+
+```css
+:root {
+  /* Dark Background Colors */
+  --bg-primary: #0a0a0f;        /* Main dark background */
+  --bg-secondary: #141420;      /* Card backgrounds */
+  --bg-tertiary: #1a1a2e;        /* Darker sections */
+  
+  /* Neon Accent Colors */
+  --accent-primary: #00d4ff;    /* Electric blue - primary accent */
+  --accent-secondary: #ff00ff;  /* Magenta - secondary accent */
+  --accent-cyan: #00ffff;        /* Cyan - alternative accent */
+  --accent-magenta: #ff00ff;     /* Magenta - alternative accent */
+  
+  /* Text Colors */
+  --text-primary: #ffffff;       /* Main text (white) */
+  --text-secondary: #a0a0b0;     /* Muted text (light gray) */
+  --text-muted: #6b6b7a;         /* Very muted text */
+  
+  /* Glassmorphism */
+  --glass-bg: rgba(20, 20, 32, 0.6);      /* Glass background */
+  --glass-border: rgba(255, 255, 255, 0.1); /* Glass border */
+  
+  /* Shadows & Glows */
+  --glow-primary: 0 0 20px rgba(0, 212, 255, 0.3);    /* Blue glow */
+  --glow-secondary: 0 0 20px rgba(255, 0, 255, 0.3);   /* Magenta glow */
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);        /* Large shadow */
+}
+```
+
+**Example:** To change the primary accent color to green:
+```css
+--accent-primary: #00ff88;
+--accent-cyan: #00ff88;
+```
+
+### Changing Fonts
+
+The project uses **Inter** font by default. To change it:
+
+1. **Update the Google Fonts import** in `/styles/globals.css`:
+   ```css
+   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
+   ```
+
+2. **Update the font-family** in the `body` selector:
+   ```css
+   font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+   ```
+
+**Popular alternatives:**
+- **Poppins**: `family=Poppins:wght@300;400;500;600;700`
+- **Space Grotesk**: `family=Space+Grotesk:wght@300;400;500;600;700`
+- **DM Sans**: `family=DM+Sans:wght@400;500;600;700`
+
+### Adjusting Hover Effects
+
+#### Card Hover Effect
+Edit `/components/ProjectCard.module.css`:
+
+```css
+.card:hover {
+  transform: translateY(-8px) scale(1.02);  /* Adjust lift amount */
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.6),         /* Shadow intensity */
+    0 0 0 1px rgba(0, 212, 255, 0.3),       /* Border glow */
+    var(--glow-primary);                     /* Neon glow */
+}
+```
+
+**To make cards lift more:** Change `translateY(-8px)` to `translateY(-12px)`  
+**To remove scale effect:** Remove `scale(1.02)`
+
+#### Button Hover Glow
+Edit button styles in `/components/ProjectCard.module.css`:
+
+```css
+.launchButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);  /* Adjust glow intensity */
+}
+```
+
+**To increase glow:** Change `0.6` to `0.8` or `1.0`  
+**To change glow color:** Replace `rgba(0, 212, 255, 0.6)` with your color
+
+### Adjusting Glassmorphism
+
+Glassmorphism (frosted glass effect) is controlled by:
+
+```css
+--glass-bg: rgba(20, 20, 32, 0.6);      /* Background opacity: 0.0-1.0 */
+--glass-border: rgba(255, 255, 255, 0.1); /* Border opacity: 0.0-1.0 */
+```
+
+**To make glass more transparent:** Lower the opacity (e.g., `0.4`)  
+**To make glass more opaque:** Increase the opacity (e.g., `0.8`)  
+**To adjust blur:** Change `backdrop-filter: blur(20px)` to your desired value
+
+### Customizing Animations
+
+All animations use Framer Motion. To adjust:
+
+1. **Card fade-in speed:** Edit `ProjectCard.jsx`:
+   ```jsx
+   transition={{ duration: 0.6, ease: 'easeOut' }}  // Change 0.6 to your value
+   ```
+
+2. **Hover animation speed:** Edit CSS transitions:
+   ```css
+   transition: all 0.3s ease;  // Change 0.3s to your value
+   ```
+
+3. **Filter transition:** Edit `pages/index.js`:
+   ```jsx
+   transition={{ duration: 0.4 }}  // Change 0.4 to your value
+   ```
+
+### Quick Color Scheme Examples
+
+**Purple Theme:**
+```css
+--accent-primary: #a855f7;
+--accent-cyan: #c084fc;
+```
+
+**Green Theme:**
+```css
+--accent-primary: #10b981;
+--accent-cyan: #34d399;
+```
+
+**Orange Theme:**
+```css
+--accent-primary: #f97316;
+--accent-cyan: #fb923c;
+```
 
 ---
 

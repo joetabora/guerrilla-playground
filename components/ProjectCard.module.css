@@ -1,17 +1,35 @@
+/* 
+ * PROJECT CARD STYLES - Futuristic Glassmorphism Design
+ * 
+ * Minimal cards with glassmorphism effect, subtle gradients, and smooth hover animations.
+ * 
+ * To customize:
+ * - Card background: Change --glass-bg in globals.css
+ * - Border glow: Adjust border gradient colors
+ * - Hover effect: Modify transform and box-shadow values
+ */
 .card {
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, rgba(238, 229, 255, 0.85), rgba(214, 228, 255, 0.9));
-  border-radius: 22px;
-  box-shadow: 0 16px 40px rgba(124, 107, 255, 0.18);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
   overflow: hidden;
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(163, 146, 255, 0.2);
-  transition: box-shadow 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  /* Subtle gradient border effect on hover */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
+/* Hover effect: Lift card with glowing border */
 .card:hover {
-  box-shadow: 0 20px 45px rgba(124, 107, 255, 0.26);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(0, 212, 255, 0.3),
+    var(--glow-primary);
+  border-color: rgba(0, 212, 255, 0.4);
 }
 
 .imageWrapper {
@@ -19,50 +37,68 @@
   width: 100%;
   padding-top: 65%;
   overflow: hidden;
+  background: var(--bg-tertiary);
 }
 
 .image {
   object-fit: cover;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  border-bottom: 1px solid var(--glass-border);
+  transition: transform 0.5s ease;
+}
+
+/* Subtle zoom effect on image hover */
+.card:hover .image {
+  transform: scale(1.05);
 }
 
 .content {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 20px;
+  gap: 16px;
+  padding: 24px;
 }
 
 .title {
-  font-size: 1.35rem;
+  font-size: 1.5rem;
+  font-weight: 600;
   color: var(--text-primary);
-  letter-spacing: 0.02em;
+  letter-spacing: -0.02em;
+  margin: 0;
 }
 
 .description {
-  font-size: 0.98rem;
+  font-size: 0.95rem;
+  font-weight: 400;
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.6;
+  margin: 0;
 }
 
 .techList {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
 .techItem {
-  background: rgba(255, 255, 255, 0.55);
-  border-radius: 999px;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 6px;
   padding: 6px 12px;
   font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--text-accent);
-  letter-spacing: 0.04em;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 4px 12px rgba(144, 120, 255, 0.16);
+  font-weight: 500;
+  color: var(--accent-primary);
+  letter-spacing: 0.02em;
+  transition: all 0.3s ease;
+}
+
+.techItem:hover {
+  background: rgba(0, 212, 255, 0.2);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
 }
 
 .buttonGroup {
@@ -71,67 +107,112 @@
   flex-wrap: wrap;
 }
 
+/* 
+ * BUTTON STYLES - Futuristic with Gradient Glows
+ * 
+ * Preview button: Outlined style with hover glow
+ * Launch button: Gradient background with pulsing glow effect
+ */
 .previewButton {
   align-self: flex-start;
-  background: rgba(255, 255, 255, 0.7);
-  color: var(--accent);
-  padding: 12px 22px;
-  border: 2px solid var(--accent);
-  border-radius: 14px;
-  font-size: 0.95rem;
+  background: transparent;
+  color: var(--accent-primary);
+  padding: 10px 20px;
+  border: 1px solid var(--accent-primary);
+  border-radius: 8px;
+  font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 8px 16px rgba(126, 113, 255, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.previewButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+  transition: left 0.5s ease;
 }
 
 .previewButton:hover {
-  background: white;
+  background: rgba(0, 212, 255, 0.1);
+  border-color: var(--accent-cyan);
+  box-shadow: var(--glow-primary);
   transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(126, 113, 255, 0.3);
+}
+
+.previewButton:hover::before {
+  left: 100%;
 }
 
 .previewButton:focus {
-  outline: 3px solid rgba(126, 113, 255, 0.4);
-  outline-offset: 4px;
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
 }
 
 .launchButton {
   align-self: flex-start;
   text-decoration: none;
-  background: linear-gradient(120deg, var(--accent), var(--accent-secondary));
-  color: white;
-  padding: 12px 22px;
-  border-radius: 14px;
-  font-size: 0.95rem;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-cyan));
+  color: var(--text-primary);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 12px 24px rgba(126, 113, 255, 0.35);
+  transition: all 0.3s ease;
+  box-shadow: var(--glow-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Pulsing glow animation on hover */
+.launchButton::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
 }
 
 .launchButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 15px 32px rgba(126, 113, 255, 0.42);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+}
+
+.launchButton:hover::before {
+  width: 300px;
+  height: 300px;
 }
 
 .launchButton:focus {
-  outline: 3px solid rgba(126, 113, 255, 0.4);
-  outline-offset: 4px;
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
 }
 
 .previewSection {
   overflow: hidden;
-  border-top: 1px solid rgba(163, 146, 255, 0.2);
+  border-top: 1px solid var(--glass-border);
+  background: var(--bg-tertiary);
 }
 
 .iframeWrapper {
   position: relative;
   width: 100%;
   padding-top: 56.25%; /* 16:9 aspect ratio */
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 0 0 22px 22px;
+  background: var(--bg-primary);
+  border-radius: 0 0 16px 16px;
 }
 
 .previewIframe {
@@ -141,7 +222,7 @@
   width: 100%;
   height: 100%;
   border: none;
-  border-radius: 0 0 22px 22px;
+  border-radius: 0 0 16px 16px;
 }
 
 .comingSoon {
@@ -150,21 +231,24 @@
   align-items: center;
   justify-content: center;
   padding: 48px 24px;
-  background: linear-gradient(135deg, rgba(238, 229, 255, 0.6), rgba(214, 228, 255, 0.6));
+  background: var(--bg-secondary);
   color: var(--text-secondary);
-  gap: 12px;
+  gap: 16px;
 }
 
 .comingSoon p {
   font-size: 1.1rem;
   font-weight: 600;
   margin: 0;
-  color: var(--text-accent);
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .comingSoonIcon {
   font-size: 2rem;
   animation: pulse 2s ease-in-out infinite;
+  filter: drop-shadow(var(--glow-primary));
 }
 
 @keyframes pulse {
