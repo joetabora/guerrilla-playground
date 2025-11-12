@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import MusicPlayer from './MusicPlayer';
 import styles from './Navbar.module.css';
 
 /**
@@ -24,14 +25,20 @@ export default function Navbar() {
           </motion.span>
         </Link>
 
-        {/* Navigation Links */}
-        <div className={styles.navLinks}>
-          <Link href="/projects" className={styles.navLink}>
-            Projects
-          </Link>
-          <Link href="/login" className={styles.loginButton}>
-            Login
-          </Link>
+        <div className={styles.rightGroup}>
+          {/* Navigation Links */}
+          <div className={styles.navLinks}>
+            <Link href="/projects" className={styles.navLink}>
+              Projects
+            </Link>
+          </div>
+
+          <div className={styles.actions}>
+            <MusicPlayer />
+            <Link href="/login" className={styles.loginButton}>
+              Login
+            </Link>
+          </div>
         </div>
       </div>
     </nav>

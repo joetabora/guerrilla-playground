@@ -5,25 +5,21 @@
  */
 
 .musicPlayer {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  z-index: 1000;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .nowPlaying {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 16px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
+  padding: 8px 14px;
+  background: rgba(20, 20, 22, 0.85);
+  backdrop-filter: blur(12px);
   border-radius: 999px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-subtle);
 }
 
 .nowPlayingIcon {
@@ -33,7 +29,7 @@
 }
 
 .nowPlayingText {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--accent-primary);
   letter-spacing: 0.02em;
@@ -59,9 +55,9 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 1px solid var(--glass-border);
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 77, 0, 0.4);
+  background: rgba(20, 20, 22, 0.85);
+  backdrop-filter: blur(12px);
   color: var(--accent-primary);
   font-size: 1.2rem;
   cursor: pointer;
@@ -73,8 +69,8 @@
 }
 
 .controlButton:hover {
-  background: rgba(0, 212, 255, 0.2);
-  border-color: var(--accent-primary);
+  background: rgba(255, 77, 0, 0.22);
+  border-color: rgba(255, 77, 0, 0.6);
   transform: scale(1.1);
   box-shadow: var(--glow-primary);
 }
@@ -84,19 +80,6 @@
 }
 
 @media (max-width: 768px) {
-  .musicPlayer {
-    top: 16px;
-    right: 16px;
-  }
-
-  .nowPlaying {
-    padding: 8px 12px;
-  }
-
-  .nowPlayingText {
-    font-size: 0.75rem;
-  }
-
   .controlButton {
     width: 40px;
     height: 40px;

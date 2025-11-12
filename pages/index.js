@@ -2,10 +2,8 @@ import { useState, useMemo } from 'react';
 import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
-import FeaturedCarousel from '../components/FeaturedCarousel';
 import FilterBar from '../components/FilterBar';
 import ProjectCard from '../components/ProjectCard';
-import MusicPlayer from '../components/MusicPlayer';
 import styles from '../styles/Home.module.css';
 // Import all project data from the JSON file
 // This file contains all your projects - add new ones here and they'll appear automatically!
@@ -64,12 +62,6 @@ export default function Home() {
       <main className={styles.page}>
         {/* Minimal navigation bar */}
         <Navbar />
-
-        {/* Optional music player in top-right corner */}
-        <MusicPlayer />
-
-        {/* Featured projects carousel */}
-        <FeaturedCarousel projects={projectsData} />
 
         {/* Hero section */}
         <motion.section
