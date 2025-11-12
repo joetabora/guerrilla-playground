@@ -1,0 +1,53 @@
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 32px;
+  padding: 0 16px;
+}
+
+.filterButton {
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 2px solid rgba(163, 146, 255, 0.4);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--text-accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 12px rgba(124, 107, 255, 0.12);
+}
+
+.filterButton:hover {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: var(--accent);
+  box-shadow: 0 6px 16px rgba(124, 107, 255, 0.2);
+}
+
+.filterButtonActive {
+  background: linear-gradient(120deg, var(--accent), var(--accent-secondary));
+  color: white;
+  border-color: var(--accent);
+  box-shadow: 0 8px 20px rgba(126, 113, 255, 0.35);
+}
+
+.filterButtonActive:hover {
+  box-shadow: 0 10px 24px rgba(126, 113, 255, 0.42);
+}
+
+@media (max-width: 640px) {
+  .filterBar {
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .filterButton {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+}
+

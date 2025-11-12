@@ -1,15 +1,36 @@
+import { useState, useMemo } from 'react';
 import Head from 'next/head';
+import { motion, AnimatePresence } from 'framer-motion';
 import ProjectCard from '../components/ProjectCard';
+import FilterBar from '../components/FilterBar';
 import styles from '../styles/Projects.module.css';
 import projects from '../data/projects.json';
 
 /**
  * Projects page.
- * Iterates through the projects JSON and renders a ProjectCard for each entry.
+ * Displays all projects with category filtering and animated transitions.
  *
  * @returns {JSX.Element} Projects showcase page.
  */
 export default function Projects() {
+  const [activeFilter, setActiveFilter] = useState(null);
+
+  // Extract unique categories from projects
+  const categories = useMemo(() => {
+    const cats = projects
+      .map((p) => p.category)
+      .filter((cat) => cat != null);
+    return [...new Set(cats)];
+  }, []);
+
+  // Filter projects based on selected category
+  const filteredProjects = useMemo(() => {
+    if (activeFilter === null) {
+      return projects;
+    }
+    return projects.filter((p) => p.category === activeFilter);
+  }, [activeFilter]);
+
   return (
     <>
       <Head>
@@ -28,18 +49,38 @@ export default function Projects() {
           </p>
         </header>
 
-        <section className={styles.grid} aria-label="Project cards">
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.title}
-              title={project.title}
-              description={project.description}
-              tech={project.tech}
-              image={project.image}
-              url={project.url}
-            />
-          ))}
-        </section>
+        {/* Filter bar */}
+        <FilterBar
+          categories={categories}
+          activeFilter={activeFilter}
+          onFilterChange={setActiveFilter}
+        />
+
+        {/* Project grid with animated filtering */}
+        <AnimatePresence mode="wait">
+          <motion.section
+            key={activeFilter || 'all'}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4 }}
+            className={styles.grid}
+            aria-label="Project cards"
+          >
+            {filteredProjects.map((project) => (
+              <ProjectCard
+                key={project.title}
+                title={project.title}
+                description={project.description}
+                tech={project.tech}
+                image={project.image}
+                url={project.url}
+                liveUrl={project.liveUrl}
+                category={project.category}
+              />
+            ))}
+          </motion.section>
+        </AnimatePresence>
       </main>
     </>
   );

@@ -3,12 +3,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   padding: 48px 24px 36px;
   background: radial-gradient(circle at 20% 20%, rgba(216, 226, 255, 0.55), transparent 55%),
     radial-gradient(circle at 80% 30%, rgba(214, 176, 255, 0.45), transparent 60%),
     linear-gradient(135deg, #f2f3ff 0%, #e8e6ff 45%, #dbe9ff 100%);
   gap: 32px;
+  position: relative;
 }
 
 .hero {
@@ -18,6 +18,21 @@
   align-items: center;
   gap: 20px;
   max-width: 640px;
+  margin-top: 0;
+}
+
+.projectsSection {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 28px;
+  width: 100%;
+  padding: 0 16px;
 }
 
 .logoWrapper {
