@@ -16,6 +16,15 @@
     "image": "/gravitygauntlet.png",
     "url": "https://github.com/joetabora/GravityGauntlet",
     "category": "Game",
+    "featured": false
+  },
+  {
+    "title": "PixelBoard",
+    "description": "A collaborative pixel art board with live chat, leaderboards, and moderation tools.",
+    "tech": ["React", "Vite", "Socket.io", "Node.js"],
+    "image": "/pixelboard.png",
+    "url": "https://github.com/joetabora/PixelBoardgame",
+    "category": "Creative",
     "featured": true
   }
 ]
