@@ -1,13 +1,14 @@
 [
   {
     "title": "Bedtime Beacon",
-    "description": "An AI bedtime story generator with interactive tales for children.",
+    "description": "An AI-powered bedtime story generator that creates imaginative tales tailored to every child.",
     "tech": ["Next.js", "Vercel", "OpenRouter"],
     "image": "/bedtimebeacon.png",
-    "url": "https://bedtime-beacon.vercel.app",
-    "liveUrl": "https://bedtime-beacon.vercel.app",
-    "category": "AI",
-    "featured": true
+    "liveUrl": "https://bedtime-beacon.vercel.app/",
+    "codeUrl": "https://github.com/joetabora/bedtime-beacon",
+    "category": "AI Projects",
+    "featured": true,
+    "status": "Live"
   },
   {
     "title": "Gravity Gauntlet",

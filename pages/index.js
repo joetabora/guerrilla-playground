@@ -149,6 +149,8 @@ export default function Home() {
                   image={project.image}
                   url={project.url}
                   liveUrl={project.liveUrl}
+                  codeUrl={project.codeUrl}
+                  status={project.status}
                   category={project.category}
                 />
               ))}

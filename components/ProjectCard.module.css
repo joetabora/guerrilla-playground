@@ -58,12 +58,44 @@
   padding: 24px;
 }
 
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
 .title {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--text-primary);
   letter-spacing: -0.02em;
   margin: 0;
+  flex: 1;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.statusLive {
+  background: rgba(0, 255, 0, 0.15);
+  color: #00ff88;
+  border: 1px solid rgba(0, 255, 0, 0.3);
+}
+
+.statusComingSoon {
+  background: rgba(255, 157, 77, 0.15);
+  color: var(--accent-secondary);
+  border: 1px solid rgba(255, 157, 77, 0.3);
 }
 
 .description {
@@ -199,6 +231,27 @@
 .launchButton:focus {
   outline: 2px solid var(--accent-primary);
   outline-offset: 2px;
+}
+
+.codeButton {
+  align-self: flex-start;
+  text-decoration: none;
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 10px 20px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: all 0.3s ease;
+}
+
+.codeButton:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--text-secondary);
+  color: var(--text-primary);
+  transform: translateY(-2px);
 }
 
 .previewSection {

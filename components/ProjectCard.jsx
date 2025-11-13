@@ -31,10 +31,12 @@ import styles from './ProjectCard.module.css';
  * @param {string} props.image - Path to the project's display image.
  * @param {string} props.url - URL where the project is deployed.
  * @param {string} [props.liveUrl] - Optional URL for live preview iframe.
+ * @param {string} [props.codeUrl] - Optional URL for project source code.
+ * @param {string} [props.status] - Optional project status (e.g., "Live", "Coming Soon").
  * @param {string} [props.category] - Optional category for filtering.
  * @returns {JSX.Element} Rendered project card.
  */
-export default function ProjectCard({ title, description, tech, image, url, liveUrl, category }) {
+export default function ProjectCard({ title, description, tech, image, url, liveUrl, codeUrl, status, category }) {
   // State to track if the preview section is open or closed
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
@@ -74,8 +76,15 @@ export default function ProjectCard({ title, description, tech, image, url, live
         Contains all the text and buttons for the project
       */}
       <div className={styles.content}>
-        {/* Project title */}
-        <h3 className={styles.title}>{title}</h3>
+        {/* Project title and status badge */}
+        <div className={styles.titleRow}>
+          <h3 className={styles.title}>{title}</h3>
+          {status && (
+            <span className={`${styles.statusBadge} ${styles[`status${status.replace(/\s+/g, '')}`]}`}>
+              {status}
+            </span>
+          )}
+        </div>
         
         {/* Project description */}
         <p className={styles.description}>{description}</p>
@@ -96,7 +105,8 @@ export default function ProjectCard({ title, description, tech, image, url, live
         {/* 
           ACTION BUTTONS
           Preview button: Only shows if liveUrl exists, opens/closes preview iframe
-          Launch button: Always shows, opens project in new tab
+          Launch button: Links to liveUrl (opens in new tab)
+          View Code button: Links to codeUrl if available
         */}
         <div className={styles.buttonGroup}>
           {/* Preview button - only shows if project has a liveUrl */}
@@ -110,15 +120,28 @@ export default function ProjectCard({ title, description, tech, image, url, live
               {isPreviewOpen ? 'Close Preview' : 'Preview'}
             </button>
           )}
-          {/* Launch button - opens project in new tab, uses liveUrl if available, otherwise uses url */}
-          <a
-            className={styles.launchButton}
-            href={liveUrl || url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Launch Project
-          </a>
+          {/* Launch button - opens live site in new tab */}
+          {liveUrl && (
+            <a
+              className={styles.launchButton}
+              href={liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Launch
+            </a>
+          )}
+          {/* View Code button - opens source code repository in new tab */}
+          {codeUrl && (
+            <a
+              className={styles.codeButton}
+              href={codeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Code
+            </a>
+          )}
         </div>
       </div>
 
@@ -171,6 +194,8 @@ ProjectCard.propTypes = {
   image: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   liveUrl: PropTypes.string,
+  codeUrl: PropTypes.string,
+  status: PropTypes.string,
   category: PropTypes.string,
 };
 

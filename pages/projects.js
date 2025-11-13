@@ -80,6 +80,8 @@ export default function Projects() {
                 image={project.image}
                 url={project.url}
                 liveUrl={project.liveUrl}
+                codeUrl={project.codeUrl}
+                status={project.status}
                 category={project.category}
               />
             ))}
