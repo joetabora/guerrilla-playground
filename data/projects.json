@@ -15,7 +15,7 @@
     "description": "A fast-paced arena prototype built with React, TypeScript, and Vite.",
     "tech": ["React", "TypeScript", "Vite"],
     "image": "/grav.png",
-    "liveUrl": "https://gravity-gauntlet.vercel.app",
+    "liveUrl": "https://gravity-gauntlet-delta.vercel.app/",
     "codeUrl": "https://github.com/joetabora/GravityGauntlet",
     "category": "Game",
     "featured": false,
