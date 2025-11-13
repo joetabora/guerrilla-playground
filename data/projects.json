@@ -14,10 +14,12 @@
     "title": "Gravity Gauntlet",
     "description": "A fast-paced arena prototype built with React, TypeScript, and Vite.",
     "tech": ["React", "TypeScript", "Vite"],
-    "image": "/gravitygauntlet.png",
-    "url": "https://github.com/joetabora/GravityGauntlet",
+    "image": "/grav.png",
+    "liveUrl": "https://gravity-gauntlet.vercel.app",
+    "codeUrl": "https://github.com/joetabora/GravityGauntlet",
     "category": "Game",
-    "featured": false
+    "featured": false,
+    "status": "Live"
   },
   {
     "title": "PixelBoard",
