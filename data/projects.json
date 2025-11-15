@@ -35,7 +35,7 @@
     "description": "A real-time multiplayer drawing & guessing game built with WebSockets.",
     "tech": ["React", "Vite", "Socket.io", "Node.js", "Express"],
     "image": "/pixlnary.png",
-    "liveUrl": "https://pixlnary.vercel.app",
+    "liveUrl": "https://pixel-boardgame.vercel.app/",
     "codeUrl": "https://github.com/joetabora/PixelBoardgame",
     "category": "Game",
     "featured": true,
