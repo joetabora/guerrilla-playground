@@ -1,3 +1,5 @@
+'use server';
+
 /**
  * Server action that routes contact form submissions through the email stub.
  */
@@ -16,7 +18,6 @@ const initialState: ContactFormState = {
 export { initialState };
 
 export async function handleContact(prevState: ContactFormState, formData: FormData): Promise<ContactFormState> {
-  'use server';
   try {
     const name = formData.get('name')?.toString() ?? '';
     const email = formData.get('email')?.toString() ?? '';
