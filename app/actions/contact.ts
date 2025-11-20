@@ -29,7 +29,7 @@ export async function handleContact(prevState: ContactFormState, formData: FormD
     }
 
     await sendEmail({ name, email, company, message });
-    return { status: 'success', message: 'Message queued successfully. We reply within 1 business day.' };
+    return { status: 'success', message: 'Message sent! We\'ll get back to you within 24 hours.' };
   } catch (error) {
     console.error('[contact action] failed', error);
     return { status: 'error', message: 'Something went wrong. Please try again later.' };

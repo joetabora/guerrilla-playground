@@ -1,76 +1,165 @@
 /**
- * Brand-focused page outlining collaboration process and pricing signal.
+ * Brands page - brand pitch with process timeline, pricing, and CTA
  */
-import Section from '@/components/Section';
-import Button from '@/components/Button';
-import { buildMetadata } from '@/lib/seo';
+import { TiltCard } from '@/components/MicroInteractions';
+import Sticker from '@/components/Sticker';
+import Link from 'next/link';
 
-export const metadata = buildMetadata({
-  title: 'Brands',
-  description: 'See how Guerrilla Social Club partners with brand and growth teams to launch creator programs.',
-  path: '/brands'
-});
-
-const process = [
+const processSteps = [
   {
-    title: 'Immersion',
-    detail: 'Audit funnels, internal decks, and existing creator output to uncover narrative gaps.'
+    step: '01',
+    title: 'Discovery Call',
+    description: 'We learn about your brand, goals, and target audience.',
+    color: 'magenta'
   },
   {
-    title: 'Creator Lab',
-    detail: 'Hand-match creators, script hook angles, and prototype assets in Figma + Notion.'
+    step: '02',
+    title: 'Strategy & Brief',
+    description: 'We create a custom strategy and creative brief tailored to your needs.',
+    color: 'lime'
   },
   {
-    title: 'Launch & Learn',
-    detail: 'Ship, collect qualitative + quantitative insights, and spin up new iterations in 1-week cycles.'
+    step: '03',
+    title: 'Creator Matching',
+    description: 'We match you with creators who align with your brand values.',
+    color: 'cyan'
+  },
+  {
+    step: '04',
+    description: 'Content goes live and we track performance in real-time.',
+    title: 'Launch & Optimize',
+    color: 'magenta'
   }
 ];
 
-const pricing = [
-  { tier: 'Sprints', price: 'Starting at $12K', note: '2-week intensives for launches and repositioning.' },
-  { tier: 'Retainers', price: 'Starting at $18K/mo', note: 'Always-on creator pods + reporting.' },
-  { tier: 'Studio', price: 'Custom', note: 'On-location capture, live streams, or experiential.' }
+const pricingTiers = [
+  {
+    name: 'Starter',
+    price: '$5K',
+    period: '/month',
+    description: 'Perfect for testing the waters',
+    features: ['5 Creators', '10 Assets', 'Basic Analytics', 'Email Support']
+  },
+  {
+    name: 'Growth',
+    price: '$15K',
+    period: '/month',
+    description: 'For brands ready to scale',
+    features: ['20 Creators', '50 Assets', 'Advanced Analytics', 'Dedicated Manager'],
+    popular: true
+  },
+  {
+    name: 'Enterprise',
+    price: 'Custom',
+    period: '',
+    description: 'Full-service partnership',
+    features: ['Unlimited Creators', 'Unlimited Assets', 'Custom Reporting', '24/7 Support']
+  }
 ];
 
-const BrandsPage = () => (
-  <div className="space-y-16 py-20">
-    <Section>
-      <p className="text-sm uppercase tracking-[0.3em] text-cyan-200">For brands</p>
-      <h1 className="mt-4 text-4xl font-semibold">Creator programs engineered for KPIs you actually report on.</h1>
-      <p className="mt-4 max-w-3xl text-slate-400">
-        We partner with growth, brand, and social teams that need creator collaborations to feel senior—not experimental.
-        Expect weekly status docs, legal-ready contracts, and crystal-clear creative direction.
-      </p>
-      <div className="mt-6 flex flex-wrap gap-4">
-        <Button href="/contact">Book a Chemistry Call</Button>
-        <Button href="/case-studies" variant="secondary">
-          Browse wins
-        </Button>
-      </div>
-    </Section>
-    <Section className="grid gap-8 md:grid-cols-3">
-      {process.map((step, index) => (
-        <div key={step.title} className="card-surface p-6">
-          <p className="text-sm uppercase tracking-wide text-cyan-200">Step {index + 1}</p>
-          <h3 className="mt-2 text-xl font-semibold">{step.title}</h3>
-          <p className="mt-2 text-sm text-slate-400">{step.detail}</p>
-        </div>
-      ))}
-    </Section>
-    <Section>
-      <h2 className="text-2xl font-semibold">Investment snapshot</h2>
-      <div className="mt-6 grid gap-6 md:grid-cols-3">
-        {pricing.map((tier) => (
-          <div key={tier.tier} className="rounded-2xl border border-white/10 p-6">
-            <p className="text-sm uppercase tracking-wide text-cyan-200">{tier.tier}</p>
-            <p className="mt-3 text-3xl font-semibold">{tier.price}</p>
-            <p className="mt-2 text-sm text-slate-400">{tier.note}</p>
-          </div>
-        ))}
-      </div>
-      <p className="mt-4 text-xs text-slate-500">Pricing includes talent fees, production, and reporting. Paid media budgets billed separately.</p>
-    </Section>
-  </div>
-);
+export const metadata = {
+  title: 'For Brands',
+  description: 'Scale your brand with creator-led creative that converts.'
+};
 
-export default BrandsPage;
+export default function BrandsPage() {
+  return (
+    <div className="min-h-screen py-20 px-4">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h1 className="text-5xl md:text-7xl font-black text-white mb-4">
+            For <span className="text-magenta">Brands</span>
+          </h1>
+          <p className="text-white/70 text-lg max-w-2xl mx-auto">
+            Scale your brand with creator-led creative that actually converts. No fluff, just results.
+          </p>
+        </div>
+
+        {/* Process Timeline */}
+        <div className="mb-20">
+          <h2 className="text-3xl font-black text-white mb-12 text-center">How It Works</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {processSteps.map((step, index) => (
+              <TiltCard
+                key={index}
+                className={`p-6 bg-ink border border-white/10 rounded-2xl ${
+                  step.color === 'magenta' ? 'hover:border-magenta' :
+                  step.color === 'lime' ? 'hover:border-lime' : 'hover:border-cyan'
+                } transition-colors`}
+              >
+                <div className={`text-4xl font-black mb-4 ${
+                  step.color === 'magenta' ? 'text-magenta' :
+                  step.color === 'lime' ? 'text-lime' : 'text-cyan'
+                }`}>
+                  {step.step}
+                </div>
+                <h3 className="text-xl font-black text-white mb-2">{step.title}</h3>
+                <p className="text-white/60 text-sm">{step.description}</p>
+              </TiltCard>
+            ))}
+          </div>
+        </div>
+
+        {/* Pricing */}
+        <div className="mb-20">
+          <h2 className="text-3xl font-black text-white mb-12 text-center">Pricing</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {pricingTiers.map((tier, index) => (
+              <TiltCard
+                key={index}
+                className={`p-8 bg-ink border rounded-2xl ${
+                  tier.popular
+                    ? 'border-lime shadow-glow-lime'
+                    : 'border-white/10'
+                }`}
+              >
+                {tier.popular && (
+                  <div className="mb-4">
+                    <Sticker color="lime" rotation={-2}>Popular</Sticker>
+                  </div>
+                )}
+                <h3 className="text-2xl font-black text-white mb-2">{tier.name}</h3>
+                <div className="mb-2">
+                  <span className="text-4xl font-black text-magenta">{tier.price}</span>
+                  <span className="text-white/60 text-sm">{tier.period}</span>
+                </div>
+                <p className="text-white/60 text-sm mb-6">{tier.description}</p>
+                <ul className="space-y-3 mb-8">
+                  {tier.features.map((feature, idx) => (
+                    <li key={idx} className="text-white/80 text-sm flex items-center gap-2">
+                      <span className="text-lime">✓</span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href="/contact"
+                  className={`block w-full text-center px-6 py-3 ${
+                    tier.popular
+                      ? 'bg-lime text-charcoal font-bold'
+                      : 'bg-magenta text-white font-bold'
+                  } text-sm uppercase tracking-tight rounded-lg hover:opacity-90 transition-opacity`}
+                >
+                  Get Started
+                </Link>
+              </TiltCard>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="bg-ink border border-white/10 rounded-2xl p-12 text-center">
+          <h2 className="text-3xl font-black text-white mb-4">Ready to Start a Brief?</h2>
+          <p className="text-white/60 mb-8">Let&apos;s talk about your goals and build something amazing together.</p>
+          <Link
+            href="/contact"
+            className="inline-block px-8 py-4 bg-magenta text-white font-bold text-lg uppercase tracking-tight rounded-lg shadow-glow-magenta hover:bg-magenta/90 transition-colors"
+          >
+            Start a Brief
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}

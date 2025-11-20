@@ -1,30 +1,30 @@
 /**
- * Contact page with details on how to engage and a server-action powered form.
+ * Contact page - contact form with brand/creator toggle
  */
-import Section from '@/components/Section';
 import ContactForm from '@/components/ContactForm';
-import { buildMetadata } from '@/lib/seo';
 
-export const metadata = buildMetadata({
+export const metadata = {
   title: 'Contact',
-  description: 'Reach Guerrilla Social Club for strategy calls, creator partnerships, or press.',
-  path: '/contact'
-});
+  description: 'Get in touch with Guerrilla Social Club.'
+};
 
-const ContactPage = () => (
-  <div className="space-y-12 py-20">
-    <Section>
-      <p className="text-sm uppercase tracking-[0.3em] text-cyan-200">Contact</p>
-      <h1 className="mt-4 text-4xl font-semibold">Tell us about your next launch.</h1>
-      <p className="mt-4 max-w-3xl text-slate-400">
-        We respond within one business day. For urgent launches, mention timelines in the message field. If you prefer
-        email, reach the partners at <a href="mailto:hello@guerrillasocial.club" className="text-cyan-200">hello@guerrillasocial.club</a>.
-      </p>
-    </Section>
-    <Section>
-      <ContactForm />
-    </Section>
-  </div>
-);
+export default function ContactPage() {
+  return (
+    <div className="min-h-screen py-20 px-4">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-5xl md:text-7xl font-black text-white mb-4">
+            Let&apos;s <span className="text-magenta">Connect</span>
+          </h1>
+          <p className="text-white/70 text-lg max-w-2xl mx-auto">
+            Whether you&apos;re a brand or creator, we&apos;d love to hear from you.
+          </p>
+        </div>
 
-export default ContactPage;
+        {/* Contact Form */}
+        <ContactForm />
+      </div>
+    </div>
+  );
+}

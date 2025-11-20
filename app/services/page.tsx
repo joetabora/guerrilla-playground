@@ -1,64 +1,111 @@
 /**
- * Services page outlining offerings, workflows, and deliverables.
+ * Services page - creative + production, UGC scale, creator casting, paid social
  */
-import Section from '@/components/Section';
-import Card from '@/components/Card';
-import { buildMetadata } from '@/lib/seo';
-
-export const metadata = buildMetadata({
-  title: 'Services',
-  description: 'Explore Guerrilla Social Club service tiers, workflows, and deliverables.',
-  path: '/services'
-});
+import { TiltCard } from '@/components/MicroInteractions';
+import Sticker from '@/components/Sticker';
+import Link from 'next/link';
 
 const services = [
   {
-    title: 'Creator Strategy Sprints',
-    description:
-      '2-week collaborations that define positioning, creator personas, and proof-of-concept messaging before investing in large productions.',
-    workflow: ['Competitive mapping', 'Creator persona audit', 'Storyboard + hook testing']
+    title: 'Creative + Production',
+    description: 'End-to-end content creation from concept to delivery. We produce thumb-stopping creative that performs.',
+    features: ['Video Production', 'Photo Shoots', 'Motion Graphics', 'Post-Production'],
+    color: 'magenta'
   },
   {
-    title: 'Always-On UGC Engine',
-    description:
-      'Monthly retained squad of creators capturing studio-quality UGC that drops directly into paid social editors.',
-    workflow: ['Briefing pods', 'Production guidelines', 'Performance retro with iteration plan']
+    title: 'UGC Scale',
+    description: 'Scale authentic user-generated content at volume. We manage creator networks to deliver hundreds of assets.',
+    features: ['Creator Network', 'Asset Management', 'Quality Control', 'Rapid Delivery'],
+    color: 'lime'
   },
   {
-    title: 'White-Glove Launches',
-    description:
-      'Full-service sourcing, contracting, creative direction, and reporting for seasonal or product-specific pushes.',
-    workflow: ['Talent shortlist & vetting', 'Legal + usage negotiation', 'Delivery dashboard + sentiment analysis']
+    title: 'Creator Casting',
+    description: 'Find the perfect creators for your brand. Our algorithm matches you with creators who align with your values.',
+    features: ['AI-Powered Matching', 'Vetting Process', 'Contract Management', 'Performance Tracking'],
+    color: 'cyan'
+  },
+  {
+    title: 'Paid Social Creative',
+    description: 'Performance-optimized creative for paid campaigns. We A/B test everything to maximize ROAS.',
+    features: ['Creative Testing', 'Performance Analytics', 'Ad Optimization', 'Creative Refresh'],
+    color: 'magenta'
   }
 ];
 
-const ServicesPage = () => (
-  <div className="space-y-16 py-20">
-    <Section>
-      <p className="text-sm uppercase tracking-[0.3em] text-cyan-200">What we do</p>
-      <h1 className="mt-4 text-4xl font-semibold">Creator programs that balance taste and performance.</h1>
-      <p className="mt-4 text-slate-400">
-        Every engagement is modular. Start with a sprint to validate messaging, or plug into our always-on creator engine.
-        We meet internal teams where they are and provide templates so ops stay transparent.
-      </p>
-    </Section>
-    <Section className="grid gap-8 md:grid-cols-3">
-      {services.map((service) => (
-        <Card
-          key={service.title}
-          title={service.title}
-          description={service.description}
-          footer={
-            <ul className="list-disc space-y-1 pl-5 text-slate-300">
-              {service.workflow.map((step) => (
-                <li key={step}>{step}</li>
-              ))}
-            </ul>
-          }
-        />
-      ))}
-    </Section>
-  </div>
-);
+export const metadata = {
+  title: 'Services',
+  description: 'Full-service creator marketing and content production.'
+};
 
-export default ServicesPage;
+export default function ServicesPage() {
+  return (
+    <div className="min-h-screen py-20 px-4">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h1 className="text-5xl md:text-7xl font-black text-white mb-4">
+            What We <span className="text-magenta">Do</span>
+          </h1>
+          <p className="text-white/70 text-lg max-w-2xl mx-auto">
+            Full-service creator marketing. From strategy to execution, we&apos;ve got you covered.
+          </p>
+        </div>
+
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          {services.map((service, index) => (
+            <TiltCard
+              key={index}
+              className={`p-8 bg-ink border border-white/10 rounded-2xl ${
+                service.color === 'magenta' ? 'hover:border-magenta' :
+                service.color === 'lime' ? 'hover:border-lime' : 'hover:border-cyan'
+              } transition-colors`}
+            >
+              <div className="mb-4">
+                <Sticker
+                  color={service.color as 'magenta' | 'lime' | 'cyan'}
+                  rotation={-2}
+                >
+                  {service.title}
+                </Sticker>
+              </div>
+              <p className="text-white/70 mb-6">{service.description}</p>
+              <ul className="space-y-2 mb-6">
+                {service.features.map((feature, idx) => (
+                  <li key={idx} className="text-white/60 text-sm flex items-center gap-2">
+                    <span className={`${
+                      service.color === 'magenta' ? 'text-magenta' :
+                      service.color === 'lime' ? 'text-lime' : 'text-cyan'
+                    }`}>✓</span>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/contact"
+                className={`inline-block px-4 py-2 ${
+                  service.color === 'magenta' ? 'bg-magenta text-white' :
+                  service.color === 'lime' ? 'bg-lime text-charcoal' : 'bg-cyan text-charcoal'
+                } font-bold text-sm uppercase tracking-tight rounded-lg hover:opacity-90 transition-opacity`}
+              >
+                Learn More
+              </Link>
+            </TiltCard>
+          ))}
+        </div>
+
+        {/* CTA Section */}
+        <div className="bg-ink border border-white/10 rounded-2xl p-12 text-center">
+          <h2 className="text-3xl font-black text-white mb-4">Ready to Get Started?</h2>
+          <p className="text-white/60 mb-8">Let&apos;s talk about your project.</p>
+          <Link
+            href="/contact"
+            className="inline-block px-8 py-4 bg-magenta text-white font-bold text-lg uppercase tracking-tight rounded-lg shadow-glow-magenta hover:bg-magenta/90 transition-colors"
+          >
+            Start a Brief
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
