@@ -460,6 +460,100 @@ Edit `/data/trends.json` and add trend objects:
 - `RippleButton` - Adds ripple effect on click
 - `ScrollReveal` - Fades in elements on scroll
 
+## 🎬 Phase 3 Features
+
+### AI Creative Concept Generator
+
+Generate AI-powered creative concepts for campaigns with hooks, scripts, and visual directions.
+
+**Route:** `/creative-generator`
+
+**Features:**
+- Multi-field form (campaign name, product summary, target audience, mood/tone, CTA, creativity level)
+- AI integration with LLM provider (or smart mock fallback)
+- 3 concept cards with animated reveal
+- Save to brief or export PDF
+- Confetti animation on success
+
+**Setup:**
+1. Add to `.env`:
+   ```
+   LLM_PROVIDER_URL=https://api.your-llm-provider.com/v1/chat/completions
+   LLM_PROVIDER_KEY=your-api-key-here
+   ```
+2. If not set, uses smart mock templates (no API needed)
+
+**Testing:**
+1. Visit `/creative-generator`
+2. Fill out the form
+3. Click "Generate Concepts"
+4. View 3 animated concept cards
+5. Check `/data/concepts.json` for saved concepts
+6. Click "Export PDF" to download concept PDF
+
+### Animated Cinematic Case Studies
+
+Full-screen animated player with metric counters and swipeable creative frames.
+
+**Features:**
+- Animated metric counters (count up from baseline to result)
+- Swipeable creative frames
+- Full-screen overlay with smooth animations
+- Auto-generate intro frame option
+
+**Testing:**
+1. Visit any case study page (e.g., `/work/streetwear-launch`)
+2. Click "🎬 Play Cinematic" button
+3. Watch metrics animate upward
+4. Swipe left/right to navigate frames
+5. Click "Generate Animated Intro" for mock intro generation
+
+### Social Mention Visualization
+
+Real-time visualization of social media mentions across platforms.
+
+**Route:** `/social-mentions`
+
+**Features:**
+- Particle/timeline canvas visualization
+- Platform filters (TikTok, Instagram, Twitter)
+- Play/pause and speed controls
+- Seed button to add test mentions
+- Real-time polling (every 5 seconds)
+
+**Testing:**
+1. Visit `/social-mentions`
+2. Click "Seed" button to add test mentions
+3. Filter by platform using buttons
+4. Adjust playback speed with slider
+5. View mentions list below visualization
+6. Check `/data/mentions.json` for saved mentions
+
+**CLI Script:**
+```bash
+node scripts/simulateMentions.js
+node scripts/simulateMentions.js --count=10
+```
+
+### Admin Console
+
+Enhanced admin interface for managing data and seeding content.
+
+**Route:** `/admin/console`
+
+**Features:**
+- Seed creative concepts with example prompts
+- Seed social mention events
+- View all JSON data files
+- Quick access to admin preview
+
+**Testing:**
+1. Visit `/admin/console`
+2. Click "Seed Concepts" to add example concepts
+3. Click "Seed Mentions" to add test mentions
+4. View JSON data in read-only editors
+5. Click "View All Data" to go to admin preview
+
 ---
 
 **Built with ❤️ by Guerrilla Social Club**
