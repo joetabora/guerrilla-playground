@@ -26,7 +26,8 @@ export default function Header() {
     { href: '/work', label: 'Work' },
     { href: '/services', label: 'Services' },
     { href: '/creators', label: 'Creators' },
-    { href: '/brands', label: 'Brands' },
+    { href: '/pricing', label: 'Pricing' },
+    { href: '/match', label: 'Match' },
     { href: '/about', label: 'About' }
   ];
 

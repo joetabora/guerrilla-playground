@@ -1,57 +1,11 @@
 /**
- * Creators page - creator signup flow, benefits, community highlights
+ * Creators page - Creator Marketplace with filters and signup
  */
+import CreatorMarketplace from '@/components/CreatorMarketplace';
 import CreatorSignupForm from '@/components/CreatorSignupForm';
-import CreatorCard from '@/components/CreatorCard';
 import { TiltCard } from '@/components/MicroInteractions';
+import NeonDivider from '@/components/NeonDivider';
 
-// Sample creator data - replace with real data
-const featuredCreators = [
-  {
-    id: '1',
-    handle: 'streetstyle_alex',
-    avatar: '/images/creators/creator-1.svg',
-    niche: 'Fashion',
-    stat: '250K',
-    statLabel: 'Followers',
-    videoPreview: undefined,
-    profileUrl: '/creators',
-    bookUrl: '/contact'
-  },
-  {
-    id: '2',
-    handle: 'techreview',
-    avatar: '/images/creators/creator-2.svg',
-    niche: 'Tech',
-    stat: '180K',
-    statLabel: 'Followers',
-    videoPreview: undefined,
-    profileUrl: '/creators',
-    bookUrl: '/contact'
-  },
-  {
-    id: '3',
-    handle: 'beautyguru',
-    avatar: '/images/creators/creator-3.svg',
-    niche: 'Beauty',
-    stat: '320K',
-    statLabel: 'Followers',
-    videoPreview: undefined,
-    profileUrl: '/creators',
-    bookUrl: '/contact'
-  },
-  {
-    id: '4',
-    handle: 'urbanvibes',
-    avatar: '/images/creators/creator-4.svg',
-    niche: 'Lifestyle',
-    stat: '150K',
-    statLabel: 'Followers',
-    videoPreview: undefined,
-    profileUrl: '/creators',
-    bookUrl: '/contact'
-  }
-];
 
 const benefits = [
   {
@@ -88,33 +42,33 @@ export default function CreatorsPage() {
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-7xl font-black text-white mb-4">
-            For <span className="text-lime">Creators</span>
+            Creator <span className="text-lime">Marketplace</span>
           </h1>
           <p className="text-white/70 text-lg max-w-2xl mx-auto">
-            Join a network of 10K+ creators. Get matched with brands, get paid fairly, and grow your audience.
+            Discover and connect with top creators across all platforms. Filter by niche, platform, location, and more.
           </p>
         </div>
 
-        {/* Benefits Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {benefits.map((benefit, index) => (
-            <TiltCard
-              key={index}
-              className="p-6 bg-ink border border-white/10 rounded-2xl text-center"
-            >
-              <div className="text-4xl mb-4">{benefit.icon}</div>
-              <h3 className="text-lg font-black text-white mb-2">{benefit.title}</h3>
-              <p className="text-white/60 text-sm">{benefit.description}</p>
-            </TiltCard>
-          ))}
+        {/* Creator Marketplace */}
+        <div className="mb-20">
+          <CreatorMarketplace />
         </div>
 
-        {/* Featured Creators Grid */}
+        <NeonDivider color="lime" className="my-16" />
+
+        {/* Benefits Section */}
         <div className="mb-16">
-          <h2 className="text-3xl font-black text-white mb-8 text-center">Featured Creators</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {featuredCreators.map((creator) => (
-              <CreatorCard key={creator.id} {...creator} />
+          <h2 className="text-3xl font-black text-white mb-8 text-center">Why Join as a Creator?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {benefits.map((benefit, index) => (
+              <TiltCard
+                key={index}
+                className="p-6 bg-ink border border-white/10 rounded-2xl text-center"
+              >
+                <div className="text-4xl mb-4">{benefit.icon}</div>
+                <h3 className="text-lg font-black text-white mb-2">{benefit.title}</h3>
+                <p className="text-white/60 text-sm">{benefit.description}</p>
+              </TiltCard>
             ))}
           </div>
         </div>

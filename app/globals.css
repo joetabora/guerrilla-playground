@@ -162,6 +162,36 @@ a {
               0 0 60px rgba(0, 255, 214, 0.1);
 }
 
+/* GSAP Page Transitions */
+.page-transition {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-transition-enter {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
 /* 3D Flip Card Styles */
 .perspective-1000 {
   perspective: 1000px;
