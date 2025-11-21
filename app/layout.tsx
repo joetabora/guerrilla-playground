@@ -60,6 +60,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" className="bg-charcoal">
       <head>
         <link rel="icon" href="/favicon.ico" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#FF2D95" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         <Header />
@@ -68,6 +72,19 @@ export default function RootLayout({ children }: RootLayoutProps) {
           {children}
         </main>
         <Footer />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                  navigator.serviceWorker.register('/sw.js')
+                    .then(() => console.log('SW registered'))
+                    .catch(() => console.log('SW registration failed'));
+                });
+              }
+            `
+          }}
+        />
       </body>
     </html>
   );

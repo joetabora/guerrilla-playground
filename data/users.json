@@ -1,0 +1,24 @@
+[
+  {
+    "id": "admin-1",
+    "email": "admin@guerrillasocial.com",
+    "role": "admin",
+    "name": "Admin User",
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "brand-1",
+    "email": "brand@example.com",
+    "role": "brand",
+    "name": "Brand User",
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "creator-1",
+    "email": "creator@example.com",
+    "role": "creator",
+    "name": "Creator User",
+    "createdAt": "2024-01-01T00:00:00Z"
+  }
+]
+

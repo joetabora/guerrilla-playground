@@ -6,6 +6,7 @@
 
 import { useState, useEffect } from 'react';
 import { getAllCaseStudies } from '@/lib/case-studies';
+import GlowCard from '@/components/GlowCard';
 
 export default function AdminConsolePage() {
   const [conceptsJson, setConceptsJson] = useState('');
@@ -74,6 +75,24 @@ export default function AdminConsolePage() {
           <h1 className="text-4xl font-black text-white mb-2">Admin Console</h1>
           <p className="text-white/60">Manage data, seed content, and view JSON files</p>
         </div>
+
+        {/* Verification Management */}
+        <GlowCard glowColor="cyan" className="p-6 mb-6">
+          <h2 className="text-2xl font-black text-white mb-4">Creator Verifications</h2>
+          <div className="space-y-2">
+            <button
+              onClick={async () => {
+                const res = await fetch('/api/get-verifications');
+                const data = await res.json();
+                interface Verification { status: string }
+                alert(`Pending: ${data.verifications.filter((v: Verification) => v.status === 'pending').length}`);
+              }}
+              className="w-full px-4 py-2 bg-cyan text-charcoal font-bold rounded-lg hover:bg-cyan/90"
+            >
+              View Pending Verifications
+            </button>
+          </div>
+        </GlowCard>
 
         {/* Seed Actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">

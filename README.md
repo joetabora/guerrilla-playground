@@ -554,6 +554,186 @@ Enhanced admin interface for managing data and seeding content.
 4. View JSON data in read-only editors
 5. Click "View All Data" to go to admin preview
 
+## 🚀 Phase 5 Features
+
+### Creator Verification System
+
+Verify creator accounts with ID documents and content links.
+
+**Route:** `/verify`
+
+**Features:**
+- Upload ID documents (stored locally in `/data/uploads`)
+- Submit sample content links
+- Auto-check for suspicious accounts (handle similarity)
+- Admin approval workflow
+
+**Testing:**
+1. Visit `/verify`
+2. Fill out verification form
+3. Upload ID document (mock)
+4. Add content links
+5. Submit verification
+6. Check `/admin/console` to approve/reject
+
+### CRM & Campaign Management
+
+Full CRUD interface for managing clients, briefs, proposals, and campaigns.
+
+**Route:** `/crm`
+
+**Features:**
+- Client management
+- Brief creation and tracking
+- Proposal workflow: draft → review → approve → archive
+- Comments thread for proposals
+- Campaign tracking
+
+**Testing:**
+1. Visit `/crm`
+2. Switch between tabs (Clients, Briefs, Proposals, Campaigns)
+3. Add new clients
+4. Create proposals
+5. Add comments to proposals
+6. Change proposal status
+
+**Data Storage:** All data saved to `/data/crm.json`
+
+### Billing & Invoices
+
+Invoice management with PDF generation.
+
+**Route:** `/billing`
+
+**Features:**
+- Invoice list with status tracking
+- Create invoice modal
+- PDF generation
+- Stripe integration stubs
+
+**Testing:**
+1. Visit `/billing`
+2. Click "Create Invoice"
+3. Fill out invoice details
+4. Generate PDF (downloads automatically)
+
+**Stripe Integration:**
+- Add `STRIPE_SECRET_KEY` and `STRIPE_PUBLISHABLE_KEY` to `.env`
+- Replace mock invoice creation with Stripe API calls
+- See comments in `/app/api/create-invoice/route.ts`
+
+### Automation Pipelines
+
+Connect concept generator to proposal builder.
+
+**Features:**
+- "Create Proposal" button on concept cards
+- Auto-populates proposal builder with concept data
+- Scheduled reports script (`scripts/scheduleReports.js`)
+
+**Testing:**
+1. Generate concepts at `/creative-generator`
+2. Click "Create Proposal" on any concept card
+3. Proposal builder opens with pre-filled data
+
+**Scheduled Reports:**
+```bash
+node scripts/scheduleReports.js
+# Or schedule with cron: 0 0 * * 0 (weekly)
+```
+
+### Campaign Dashboard & Analytics
+
+Real-time campaign KPIs and visualizations.
+
+**Route:** `/dashboard`
+
+**Features:**
+- Top KPIs: Impressions, Clicks, Conversions, Revenue
+- Line chart: Impressions over time
+- Bar chart: Engagement by platform
+- CSV export functionality
+
+**Testing:**
+1. Visit `/dashboard`
+2. View KPI cards
+3. Review charts
+4. Click "Export CSV Report"
+
+### Access Control
+
+Role-based authentication system (mock).
+
+**Features:**
+- Three roles: admin, brand, creator
+- Mock magic link authentication
+- localStorage-based sessions
+- Role-based access checks
+
+**Testing:**
+1. Use `AuthProvider` in your app
+2. Call `login(email)` with user email from `/data/users.json`
+3. Check role with `hasRole('admin')`
+4. Logout with `logout()`
+
+**Production Migration:**
+- Replace with NextAuth.js, Auth0, or Clerk
+- See comments in `/components/AuthProvider.tsx`
+
+### Admin Tools & Audit
+
+Admin console with verification management and audit logging.
+
+**Route:** `/admin/console`
+
+**Features:**
+- View pending verifications
+- Approve/reject creator verifications
+- Adjust campaign budgets (mock)
+- Push notifications (mock)
+- Audit log in `/data/audit.json`
+
+**Testing:**
+1. Visit `/admin/console`
+2. Click "View Pending Verifications"
+3. Approve/reject verifications via API
+4. Check `/data/audit.json` for logged actions
+
+### PWA Support
+
+Progressive Web App with offline capabilities.
+
+**Features:**
+- PWA manifest (`/public/manifest.json`)
+- Service worker for offline caching
+- Mobile-optimized portal (`/portal/mobile`)
+
+**Testing:**
+1. Build and deploy site
+2. Visit on mobile device
+3. Add to home screen
+4. Test offline functionality
+
+### Security & Data Migration
+
+**File Uploads:**
+- Currently stored in `/data/uploads` (local)
+- Production: Use S3, Cloudinary, or similar
+- See comments in `/app/api/save-verification/route.ts`
+
+**Database Migration:**
+- All data currently in `/data/*.json` files
+- To migrate to database:
+  1. Choose database (PostgreSQL, MongoDB, etc.)
+  2. Replace `fs.readFileSync` with database queries
+  3. Update all API routes
+  4. See migration notes in API route comments
+
+**Environment Variables:**
+- Copy `.env.example` to `.env`
+- Add your API keys (Stripe, LLM, Sentry, etc.)
+- Never commit `.env` to git
+
 ---
 
 **Built with ❤️ by Guerrilla Social Club**

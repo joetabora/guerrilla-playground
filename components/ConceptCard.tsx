@@ -90,6 +90,20 @@ export default function ConceptCard({ concept, index, onSaveToBrief }: ConceptCa
           Save to Brief
         </button>
         <button
+          onClick={() => {
+            // Automation: Create Proposal from Concept
+            const params = new URLSearchParams({
+              concept: JSON.stringify(concept),
+              source: 'concept-generator'
+            });
+            window.location.href = `/proposal-builder?${params.toString()}`;
+          }}
+          className="flex-1 px-4 py-2 bg-cyan text-charcoal font-bold text-sm uppercase tracking-tight rounded-lg hover:bg-cyan/90 transition-colors"
+          aria-label={`Create proposal from concept ${index + 1}`}
+        >
+          Create Proposal
+        </button>
+        <button
           onClick={handleExportPDF}
           className="flex-1 px-4 py-2 bg-transparent border-2 border-lime text-lime font-bold text-sm uppercase tracking-tight rounded-lg hover:bg-lime hover:text-charcoal transition-colors"
           aria-label={`Export concept ${index + 1} as PDF`}
