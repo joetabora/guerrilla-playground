@@ -2,7 +2,56 @@
  * Creators page - creator signup flow, benefits, community highlights
  */
 import CreatorSignupForm from '@/components/CreatorSignupForm';
+import CreatorCard from '@/components/CreatorCard';
 import { TiltCard } from '@/components/MicroInteractions';
+
+// Sample creator data - replace with real data
+const featuredCreators = [
+  {
+    id: '1',
+    handle: 'streetstyle_alex',
+    avatar: '/images/creators/creator-1.svg',
+    niche: 'Fashion',
+    stat: '250K',
+    statLabel: 'Followers',
+    videoPreview: undefined,
+    profileUrl: '/creators',
+    bookUrl: '/contact'
+  },
+  {
+    id: '2',
+    handle: 'techreview',
+    avatar: '/images/creators/creator-2.svg',
+    niche: 'Tech',
+    stat: '180K',
+    statLabel: 'Followers',
+    videoPreview: undefined,
+    profileUrl: '/creators',
+    bookUrl: '/contact'
+  },
+  {
+    id: '3',
+    handle: 'beautyguru',
+    avatar: '/images/creators/creator-3.svg',
+    niche: 'Beauty',
+    stat: '320K',
+    statLabel: 'Followers',
+    videoPreview: undefined,
+    profileUrl: '/creators',
+    bookUrl: '/contact'
+  },
+  {
+    id: '4',
+    handle: 'urbanvibes',
+    avatar: '/images/creators/creator-4.svg',
+    niche: 'Lifestyle',
+    stat: '150K',
+    statLabel: 'Followers',
+    videoPreview: undefined,
+    profileUrl: '/creators',
+    bookUrl: '/contact'
+  }
+];
 
 const benefits = [
   {
@@ -58,6 +107,16 @@ export default function CreatorsPage() {
               <p className="text-white/60 text-sm">{benefit.description}</p>
             </TiltCard>
           ))}
+        </div>
+
+        {/* Featured Creators Grid */}
+        <div className="mb-16">
+          <h2 className="text-3xl font-black text-white mb-8 text-center">Featured Creators</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {featuredCreators.map((creator) => (
+              <CreatorCard key={creator.id} {...creator} />
+            ))}
+          </div>
         </div>
 
         {/* Signup Form */}

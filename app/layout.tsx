@@ -7,6 +7,7 @@ import './globals.css';
 import { Inter } from 'next/font/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import LiveCreatorBar from '@/components/LiveCreatorBar';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -62,6 +63,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         <Header />
+        <LiveCreatorBar />
         <main className="min-h-screen pt-16">
           {children}
         </main>

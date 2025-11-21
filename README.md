@@ -38,16 +38,32 @@ npm start
 ```
 guerrilla-playground/
 ├── app/                    # Next.js App Router pages
-│   ├── layout.tsx         # Root layout with Header/Footer
+│   ├── layout.tsx         # Root layout with Header/Footer/LiveCreatorBar
 │   ├── page.tsx           # Home page
-│   ├── work/              # Case studies page
+│   ├── work/              # Case studies listing
+│   │   └── [slug]/        # Dynamic case study pages
+│   ├── admin/             # Admin routes (dev-only)
+│   │   └── preview/       # Case studies & activity editor
 │   ├── services/          # Services page
-│   ├── creators/          # Creator signup page
+│   ├── creators/          # Creator signup page with CreatorCards
 │   ├── brands/            # Brand pitch page
 │   ├── contact/           # Contact form page
 │   ├── about/             # About/team page
 │   ├── actions/           # Server actions
 │   └── globals.css        # Global styles
+├── data/                  # JSON data files
+│   ├── case-studies.json  # Case study content
+│   └── activity.json      # Live activity feed data
+├── components/
+│   ├── CreatorCard.tsx    # Interactive flip card component
+│   ├── LiveCreatorBar.tsx # Marquee activity feed
+│   ├── MiniPlayer.tsx     # Sticky video player
+│   └── ...                # Other components
+├── lib/
+│   ├── case-studies.ts    # Case study utilities
+│   └── activity.ts        # Activity feed utilities
+└── scripts/
+    └── pushActivity.js    # CLI script to add activities
 ├── components/            # React components
 │   ├── Header.tsx         # Sticky navigation
 │   ├── Footer.tsx         # Site footer
@@ -125,25 +141,100 @@ NEXT_PUBLIC_SITE_URL=https://yourdomain.com
 2. Add your custom domain
 3. Follow DNS configuration instructions
 
-## 📝 Content Management
+## 📝 Content Management (Phase 1)
 
-### Updating Case Studies
+### Adding Case Studies
 
-Edit `app/work/page.tsx` and update the `caseStudies` array:
+Case studies are now data-driven from `/data/case-studies.json`. To add a new case study:
 
-```typescript
-const caseStudies = [
-  {
-    id: 'your-case-study',
-    title: 'Your Title',
-    brand: 'Brand Name',
-    description: 'Description...',
-    thumbnail: '/images/case-1.jpg',
-    metrics: [...],
-    // ...
-  }
-];
-```
+1. **Edit the JSON file directly:**
+   ```bash
+   # Open data/case-studies.json
+   # Add a new case study object with:
+   # - id, title, brand, description, slug
+   # - thumbnail (image URL)
+   # - metrics array
+   # - content object (challenge, solution, results, creators, highlights)
+   ```
+
+2. **Or use the Admin Preview:**
+   - Visit `/admin/preview` in your browser
+   - Edit the Case Studies JSON editor
+   - Click "Save Case Studies"
+
+3. **Case study structure:**
+   ```json
+   {
+     "id": "unique-id",
+     "title": "Case Study Title",
+     "brand": "Brand Name",
+     "description": "Brief description",
+     "slug": "url-friendly-slug",
+     "thumbnail": "/images/case-1.jpg",
+     "published": true,
+     "date": "2024-01-15",
+     "category": "Fashion",
+     "metrics": [
+       { "label": "Impressions", "value": "5.2M", "change": "320%" }
+     ],
+     "content": {
+       "challenge": "...",
+       "solution": "...",
+       "results": "...",
+       "creators": ["@creator1", "@creator2"],
+       "highlights": ["Highlight 1", "Highlight 2"]
+     }
+   }
+   ```
+
+4. **View case study:**
+   - Case studies automatically appear on `/work`
+   - Individual pages are at `/work/[slug]`
+
+### Adding Creator Cards
+
+Creator cards are displayed on the `/creators` page. To add creators:
+
+1. **Edit `app/creators/page.tsx`:**
+   ```typescript
+   const featuredCreators = [
+     {
+       id: '1',
+       handle: 'creator_handle',
+       avatar: '/images/creators/creator-1.svg',
+       niche: 'Fashion',
+       stat: '250K',
+       statLabel: 'Followers',
+       videoPreview: '/videos/creator-preview.webm', // Optional
+       profileUrl: '/creators',
+       bookUrl: '/contact'
+     }
+   ];
+   ```
+
+2. **Add creator assets:**
+   - Place avatar images in `/public/images/creators/`
+   - Add video previews (webm/mp4) for flip card back side
+
+### Adding Activity Events
+
+The live creator bar shows real-time activity. To add events:
+
+1. **Using the CLI script:**
+   ```bash
+   node scripts/pushActivity.js "New creator joined" creator 🎬
+   node scripts/pushActivity.js "Campaign launched" campaign 🚀
+   node scripts/pushActivity.js "Milestone reached" achievement 🎉
+   ```
+
+2. **Or edit JSON directly:**
+   - Edit `/data/activity.json`
+   - Add new event objects with: id, type, message, timestamp, icon
+
+3. **Or use Admin Preview:**
+   - Visit `/admin/preview`
+   - Edit Activity Feed JSON editor
+   - Click "Save Activities"
 
 ### Updating Featured Reels
 
@@ -153,14 +244,22 @@ Edit `app/page.tsx` and update the `featuredReels` array:
 const featuredReels = [
   {
     id: '1',
-    thumbnail: '/images/reel-1.jpg',
+    thumbnail: '/images/reels/reel-1.svg',
     title: 'Campaign Title',
     brand: 'Brand Name',
+    videoUrl: '/videos/reel-1.mp4', // Optional - for MiniPlayer
     views: '2.5M',
     engagement: '15%'
   }
 ];
 ```
+
+**MiniPlayer Features:**
+- Click any reel thumbnail to open MiniPlayer (bottom-left)
+- MiniPlayer autoplays muted video
+- Hover to pause video
+- Close button to dismiss
+- Preloads thumbnails, lazy-loads full video assets
 
 ### Updating Team
 

@@ -7,12 +7,14 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
+import MiniPlayer from './MiniPlayer';
 
 interface Reel {
   id: string;
   thumbnail: string;
   title: string;
   brand: string;
+  videoUrl?: string;
   views?: string;
   engagement?: string;
 }
@@ -23,6 +25,7 @@ interface ReelGridProps {
 
 export default function ReelGrid({ reels }: ReelGridProps) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [selectedReel, setSelectedReel] = useState<Reel | null>(null);
 
   return (
     <section className="py-20 px-4">
@@ -50,6 +53,16 @@ export default function ReelGrid({ reels }: ReelGridProps) {
                 className="relative aspect-[9/16] rounded-2xl overflow-hidden cursor-pointer group"
                 onMouseEnter={() => setHoveredId(reel.id)}
                 onMouseLeave={() => setHoveredId(null)}
+                onClick={() => setSelectedReel(reel)}
+                role="button"
+                tabIndex={0}
+                aria-label={`Play ${reel.title}`}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setSelectedReel(reel);
+                  }
+                }}
               >
                 {/* Thumbnail/Video */}
                 <div className="absolute inset-0">
@@ -103,6 +116,9 @@ export default function ReelGrid({ reels }: ReelGridProps) {
           ))}
         </div>
       </div>
+
+      {/* MiniPlayer */}
+      <MiniPlayer reel={selectedReel} onClose={() => setSelectedReel(null)} />
     </section>
   );
 }

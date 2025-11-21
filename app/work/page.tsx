@@ -1,54 +1,9 @@
 /**
  * Work / Case Studies page - immersive case study cards with metrics
+ * Data-driven from /data/case-studies.json
  */
 import CaseStudyCard from '@/components/CaseStudyCard';
-
-// Sample case study data - replace with real data
-const caseStudies = [
-  {
-    id: 'streetwear-launch',
-    title: 'Streetwear Brand Launch',
-    brand: 'Urban Threads',
-    description: 'Launched a new streetwear line with creator-led content that generated 5M+ impressions and 2.5M in first-month sales.',
-    thumbnail: 'https://placehold.co/800x450/FF2D95/FFFFFF?text=Case+Study+1',
-    metrics: [
-      { label: 'Impressions', value: '5.2M', change: '320%' },
-      { label: 'Engagement', value: '18.5%', change: '145%' },
-      { label: 'Sales', value: '$2.5M', change: '280%' },
-      { label: 'ROAS', value: '8.2x', change: '210%' }
-    ],
-    beforeAfter: {
-      before: 'https://placehold.co/800x450/1a1a1a/FFFFFF?text=Before',
-      after: 'https://placehold.co/800x450/FF2D95/FFFFFF?text=After'
-    }
-  },
-  {
-    id: 'tech-product-launch',
-    title: 'Tech Product Launch',
-    brand: 'TechFlow',
-    description: 'Creator partnerships drove 3M+ video views and 50K+ app downloads in the first week.',
-    thumbnail: 'https://placehold.co/800x450/A6FF00/000000?text=Case+Study+2',
-    metrics: [
-      { label: 'Video Views', value: '3.1M', change: '450%' },
-      { label: 'App Downloads', value: '50K+', change: '380%' },
-      { label: 'CTR', value: '12.3%', change: '290%' },
-      { label: 'Cost Per Install', value: '$0.85', change: '-65%' }
-    ]
-  },
-  {
-    id: 'beauty-campaign',
-    title: 'Beauty Brand Awareness',
-    brand: 'Glow Up',
-    description: 'Multi-platform creator campaign increased brand awareness by 400% and drove 1.2M new followers.',
-    thumbnail: 'https://placehold.co/800x450/00FFD6/000000?text=Case+Study+3',
-    metrics: [
-      { label: 'Reach', value: '15M+', change: '520%' },
-      { label: 'New Followers', value: '1.2M', change: '380%' },
-      { label: 'Engagement Rate', value: '22%', change: '195%' },
-      { label: 'Brand Mentions', value: '45K+', change: '610%' }
-    ]
-  }
-];
+import { getAllCaseStudies } from '@/lib/case-studies';
 
 export const metadata = {
   title: 'Our Work',
@@ -56,6 +11,8 @@ export const metadata = {
 };
 
 export default function WorkPage() {
+  const caseStudies = getAllCaseStudies();
+
   return (
     <div className="min-h-screen py-20 px-4">
       <div className="max-w-7xl mx-auto">

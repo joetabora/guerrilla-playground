@@ -9,25 +9,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { TiltCard } from './MicroInteractions';
 import Sticker from './Sticker';
-
-interface Metric {
-  label: string;
-  value: string;
-  change?: string;
-}
-
-interface CaseStudy {
-  id: string;
-  title: string;
-  brand: string;
-  description: string;
-  thumbnail: string;
-  metrics: Metric[];
-  beforeAfter?: {
-    before: string;
-    after: string;
-  };
-}
+import type { CaseStudy } from '@/lib/case-studies';
 
 interface CaseStudyCardProps {
   caseStudy: CaseStudy;
@@ -98,10 +80,11 @@ export default function CaseStudyCard({ caseStudy, index }: CaseStudyCardProps) 
 
           {/* CTA */}
           <motion.a
-            href={`/work/${caseStudy.id}`}
+            href={`/work/${caseStudy.slug}`}
             className="inline-block px-4 py-2 bg-magenta text-white font-bold text-sm uppercase tracking-tight rounded-lg hover:bg-magenta/90 transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            aria-label={`View ${caseStudy.title} case study`}
           >
             View Case Study
           </motion.a>
