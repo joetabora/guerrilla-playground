@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/pdfkit": "^0.17.3",
     "canvas-confetti": "^1.9.4",
     "clsx": "^2.1.1",
     "framer-motion": "^11.0.27",
     "next": "^14.2.11",
+    "pdfkit": "^0.17.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

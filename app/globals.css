@@ -14,6 +14,13 @@
   --color-cyan: #00FFD6;
   --color-white: #FFFFFF;
   --grain-opacity: 0.05;
+  
+  /* Neon-graffiti accent colors */
+  --neon-pink: #FF2D95;
+  --neon-green: #A6FF00;
+  --neon-cyan: #00FFD6;
+  --neon-purple: #B026FF;
+  --neon-yellow: #FFD600;
 }
 
 * {
@@ -117,6 +124,42 @@ a {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-lime);
+}
+
+/* Micro-interaction utilities */
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.fade-in-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Neon glow effects */
+.neon-glow-magenta {
+  box-shadow: 0 0 20px rgba(255, 45, 149, 0.5),
+              0 0 40px rgba(255, 45, 149, 0.3),
+              0 0 60px rgba(255, 45, 149, 0.1);
+}
+
+.neon-glow-lime {
+  box-shadow: 0 0 20px rgba(166, 255, 0, 0.5),
+              0 0 40px rgba(166, 255, 0, 0.3),
+              0 0 60px rgba(166, 255, 0, 0.1);
+}
+
+.neon-glow-cyan {
+  box-shadow: 0 0 20px rgba(0, 255, 214, 0.5),
+              0 0 40px rgba(0, 255, 214, 0.3),
+              0 0 60px rgba(0, 255, 214, 0.1);
 }
 
 /* 3D Flip Card Styles */

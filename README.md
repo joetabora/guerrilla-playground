@@ -367,6 +367,99 @@ Private - All rights reserved
 
 For questions or issues, contact the development team.
 
+## 🎯 Phase 2 Features
+
+### Brief Builder
+
+Create detailed project briefs with a multi-step form that generates PDFs and saves to JSON.
+
+**Route:** `/brief-builder`
+
+**Features:**
+- 5-step guided form (Brand Info → Goals → Deliverables → Budget → Timeline)
+- PDF generation on submit
+- Saves to `/data/briefs.json`
+- Email stub (logs to console)
+- Confetti animation on success
+
+**Testing:**
+1. Visit `/brief-builder`
+2. Complete all 5 steps
+3. Submit the form
+4. PDF will download automatically
+5. Check console for email stub log
+6. Check `/data/briefs.json` for saved brief
+
+### Creator Personality Quiz
+
+Take a personality quiz to discover your creator type and earn a badge.
+
+**Route:** `/creator-quiz`
+
+**Features:**
+- 8 personality questions
+- 5 badge types: Visionary, Trendsetter, Maverick, Connector, Storyteller
+- Badge saved to `/data/creator-badges.json`
+- Animated result card with confetti
+
+**Testing:**
+1. Visit `/creator-quiz`
+2. Answer all 8 questions
+3. View your badge result
+4. Check `/data/creator-badges.json` for saved badge
+
+**Badge Types:**
+- **The Visionary** ✨ - Sees possibilities others don't
+- **The Trendsetter** 🔥 - Always ahead of the curve
+- **The Maverick** ⚡ - Breaks rules and creates own path
+- **The Connector** 🤝 - Builds bridges and communities
+- **The Storyteller** 📖 - Weaves narratives that move people
+
+### Trends Radar
+
+Visualize trending topics across creator categories with an interactive radial heatmap.
+
+**Route:** `/trends-radar`
+
+**Features:**
+- SVG-based radial visualization
+- 4 categories: Beauty, Lifestyle, Gaming, Tech
+- Animated trend sectors
+- Color-coded intensity (Magenta = High, Lime = Medium, Cyan = Low)
+- Switch between categories
+
+**Testing:**
+1. Visit `/trends-radar`
+2. Click category buttons to switch views
+3. Watch trend sectors animate on load
+4. View intensity percentages
+
+**Adding Trends:**
+Edit `/data/trends.json` and add trend objects:
+```json
+{
+  "name": "Trend Name",
+  "intensity": 85,
+  "angle": 45
+}
+```
+
+### Global UI Enhancements
+
+**Parallax Backgrounds:**
+- Subtle parallax effects on hero sections
+- No performance impact
+- Smooth animations
+
+**Micro-interactions:**
+- Ripple effects on buttons (use `RippleButton` component)
+- Scroll-based fade reveals (use `ScrollReveal` component)
+- Enhanced color tokens with neon-graffiti aesthetic
+
+**Components:**
+- `RippleButton` - Adds ripple effect on click
+- `ScrollReveal` - Fades in elements on scroll
+
 ---
 
 **Built with ❤️ by Guerrilla Social Club**

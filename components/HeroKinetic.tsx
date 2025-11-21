@@ -71,6 +71,40 @@ export default function HeroKinetic({
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 py-20">
+      {/* Parallax Background Layers */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          className="absolute top-0 left-0 w-full h-full"
+          style={{
+            background: 'radial-gradient(circle at 20% 30%, rgba(255, 45, 149, 0.15) 0%, transparent 50%)',
+          }}
+          animate={{
+            y: [0, -20, 0],
+            x: [0, 10, 0]
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: 'easeInOut'
+          }}
+        />
+        <motion.div
+          className="absolute top-0 right-0 w-full h-full"
+          style={{
+            background: 'radial-gradient(circle at 80% 70%, rgba(166, 255, 0, 0.15) 0%, transparent 50%)',
+          }}
+          animate={{
+            y: [0, 20, 0],
+            x: [0, -10, 0]
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: 'easeInOut'
+          }}
+        />
+      </div>
+      
       {/* Animated gradient orbs */}
       <AnimatedGradientOrb size={500} color="magenta" className="top-20 left-10" />
       <AnimatedGradientOrb size={400} color="lime" className="bottom-20 right-10" />
