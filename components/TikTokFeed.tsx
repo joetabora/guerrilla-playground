@@ -61,14 +61,18 @@ export default function TikTokFeed() {
         const response = await fetch('/api/tiktok/videos');
         const data = await response.json();
         
+        console.log('[TikTokFeed] API response:', data);
+        
         if (data.videos && data.videos.length > 0) {
+          console.log('[TikTokFeed] Setting videos:', data.videos.length, 'videos');
           setVideos(data.videos);
         } else {
+          console.log('[TikTokFeed] No videos in response, using fallback');
           // Fallback to mock data if API returns empty
           setVideos(mockTikTokVideos);
         }
       } catch (error) {
-        console.error('Failed to fetch TikTok videos:', error);
+        console.error('[TikTokFeed] Failed to fetch TikTok videos:', error);
         // Fallback to mock data on error
         setVideos(mockTikTokVideos);
       } finally {

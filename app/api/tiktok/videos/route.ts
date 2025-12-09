@@ -24,8 +24,11 @@ async function fetchTikTokVideosFromAPI(): Promise<TikTokVideo[]> {
   const TIKTOK_USERNAME = 'suchgrime';
 
   if (!TIKTOK_API_KEY) {
+    console.log('[TikTok API] No API key found in environment variables');
     return [];
   }
+  
+  console.log('[TikTok API] Starting fetch with key:', TIKTOK_API_KEY.substring(0, 10) + '...');
 
   // Try multiple endpoints from tiktok-scraper7
   const endpoints = [
@@ -49,6 +52,9 @@ async function fetchTikTokVideosFromAPI(): Promise<TikTokVideo[]> {
 
       if (response.ok) {
         const data = await response.json();
+        
+        // Debug: Log the response structure
+        console.log(`[TikTok API] Response from ${endpoint}:`, JSON.stringify(data, null, 2).substring(0, 1000));
         
         // Try different response structures
         let videos: unknown[] = [];
@@ -119,7 +125,8 @@ async function fetchTikTokVideosFromAPI(): Promise<TikTokVideo[]> {
           }
         }
       } else {
-        console.log(`Endpoint ${endpoint} returned status ${response.status}`);
+        const errorText = await response.text().catch(() => 'Could not read error');
+        console.log(`[TikTok API] Endpoint ${endpoint} returned status ${response.status}:`, errorText.substring(0, 500));
       }
     } catch (error) {
       console.error(`Error fetching from ${endpoint}:`, error);
