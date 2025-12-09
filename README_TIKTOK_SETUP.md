@@ -27,7 +27,7 @@ You're using **tiktok-scraper7.p.rapidapi.com**. Here's how to set it up:
 **Local (.env.local):**
 ```bash
 TIKTOK_API_KEY=86efff1ae2msh512ff901d78e8e0p182eb8jsnd76bad523cd5
-TIKTOK_USER_ID=7128593328456041478
+TIKTOK_USER_ID=18882196
 ```
 
 **Vercel:**
@@ -38,7 +38,7 @@ TIKTOK_USER_ID=7128593328456041478
      **Environments:** All (Production, Preview, Development)
    
    - **Name:** `TIKTOK_USER_ID`
-     **Value:** `7128593328456041478`
+     **Value:** `18882196`
      **Environments:** All (Production, Preview, Development)
 
 ### Step 2: The API Will Try Multiple Endpoints

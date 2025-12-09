@@ -20,7 +20,7 @@ const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes (TikTok updates less freque
 
 async function fetchTikTokVideosFromAPI(): Promise<TikTokVideo[]> {
   const TIKTOK_API_KEY = process.env.TIKTOK_API_KEY;
-  const TIKTOK_USER_ID = process.env.TIKTOK_USER_ID || '7128593328456041478'; // @suchgrime user ID
+  const TIKTOK_USER_ID = process.env.TIKTOK_USER_ID || '18882196'; // @suchgrime user ID
   const TIKTOK_USERNAME = 'suchgrime';
 
   if (!TIKTOK_API_KEY) {
