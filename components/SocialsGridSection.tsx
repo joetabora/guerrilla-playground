@@ -31,7 +31,7 @@ export default function SocialsGridSection() {
           className="text-5xl md:text-7xl font-black text-center mb-12 text-white"
           style={{ letterSpacing: '-0.02em' }}
         >
-          FOLLOW THE <span className="text-neon-cyan">FILTH</span>
+          JOIN <span className="text-neon-cyan">GUERRILLA SOCIAL CLUB</span>
         </motion.h2>
 
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6">

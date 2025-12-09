@@ -206,3 +206,70 @@ html {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
+
+/* Glitch Effect */
+.glitch-container {
+  position: relative;
+}
+
+.glitch-container::before,
+.glitch-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.glitch-container:hover::before {
+  opacity: 0.1;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 255, 255, 0.5) 50%,
+    transparent 100%
+  );
+  animation: glitch-scan 0.5s linear;
+}
+
+.glitch-container:hover::after {
+  opacity: 0.1;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 102, 0, 0.5) 50%,
+    transparent 100%
+  );
+  animation: glitch-scan 0.5s linear 0.1s;
+}
+
+@keyframes glitch-scan {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* TikTok Scroll Animation */
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
