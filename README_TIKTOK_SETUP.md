@@ -2,7 +2,23 @@
 
 This guide will help you set up automatic TikTok video fetching for your site.
 
-## ✅ Quick Setup (You Already Have the API Key!)
+## ⚠️ IMPORTANT: Subscribe to the API First!
+
+Your API key is set, but you need to **subscribe to the TikTok Scraper API** on RapidAPI for it to work.
+
+### Step 0: Subscribe to the API (REQUIRED)
+
+1. Go to [RapidAPI](https://rapidapi.com/)
+2. Search for **"TikTok Scraper"** or go to the API you're using
+3. Click **"Subscribe"** or **"Subscribe to Test"** (many have free tiers)
+4. Choose a plan (usually there's a free tier with limited requests)
+5. Once subscribed, your API key will work
+
+**Current Issue:** The API is returning `403 - "You are not subscribed to this API"` - you need to subscribe first!
+
+---
+
+## ✅ Quick Setup (After Subscribing)
 
 You're using **tiktok-scraper7.p.rapidapi.com**. Here's how to set it up:
 

@@ -31,13 +31,14 @@ async function fetchTikTokVideosFromAPI(): Promise<TikTokVideo[]> {
   console.log('[TikTok API] Starting fetch with key:', TIKTOK_API_KEY.substring(0, 10) + '...');
 
   // Try multiple endpoints from tiktok-scraper7
+  // Primary endpoint: /user/story (confirmed working after subscription)
   const endpoints = [
-    // Try user videos endpoint (if available)
-    `https://tiktok-scraper7.p.rapidapi.com/user/posts?username=${TIKTOK_USERNAME}&count=6`,
-    // Try user profile with videos
-    `https://tiktok-scraper7.p.rapidapi.com/user/profile?username=${TIKTOK_USERNAME}`,
-    // Try user story (might contain videos)
+    // Primary: user story endpoint (this is the confirmed working one)
     `https://tiktok-scraper7.p.rapidapi.com/user/story?user_id=${TIKTOK_USER_ID}`,
+    // Fallback: user posts endpoint
+    `https://tiktok-scraper7.p.rapidapi.com/user/posts?username=${TIKTOK_USERNAME}&count=6`,
+    // Fallback: user profile endpoint
+    `https://tiktok-scraper7.p.rapidapi.com/user/profile?username=${TIKTOK_USERNAME}`,
   ];
 
   for (const endpoint of endpoints) {
@@ -57,6 +58,7 @@ async function fetchTikTokVideosFromAPI(): Promise<TikTokVideo[]> {
         console.log(`[TikTok API] Response from ${endpoint}:`, JSON.stringify(data, null, 2).substring(0, 1000));
         
         // Try different response structures
+        // The /user/story endpoint might return different structures
         let videos: unknown[] = [];
         
         // Structure 1: data.videos or data.data.videos
@@ -68,6 +70,16 @@ async function fetchTikTokVideosFromAPI(): Promise<TikTokVideo[]> {
           videos = data.data.posts;
         } else if (data.posts && Array.isArray(data.posts)) {
           videos = data.posts;
+        } else if (data.data?.items && Array.isArray(data.data.items)) {
+          // Story endpoint might return items
+          videos = data.data.items;
+        } else if (data.items && Array.isArray(data.items)) {
+          videos = data.items;
+        } else if (data.data?.story && Array.isArray(data.data.story)) {
+          // Story endpoint might return story array
+          videos = data.data.story;
+        } else if (data.story && Array.isArray(data.story)) {
+          videos = data.story;
         } else if (data.data && Array.isArray(data.data)) {
           videos = data.data;
         } else if (Array.isArray(data)) {
@@ -126,7 +138,14 @@ async function fetchTikTokVideosFromAPI(): Promise<TikTokVideo[]> {
         }
       } else {
         const errorText = await response.text().catch(() => 'Could not read error');
-        console.log(`[TikTok API] Endpoint ${endpoint} returned status ${response.status}:`, errorText.substring(0, 500));
+        
+        if (response.status === 403) {
+          console.error(`[TikTok API] 403 Forbidden - You need to subscribe to the API on RapidAPI. Endpoint: ${endpoint}`);
+        } else if (response.status === 429) {
+          console.error(`[TikTok API] 429 Rate Limited - Too many requests. Wait before retrying. Endpoint: ${endpoint}`);
+        } else {
+          console.log(`[TikTok API] Endpoint ${endpoint} returned status ${response.status}:`, errorText.substring(0, 500));
+        }
       }
     } catch (error) {
       console.error(`Error fetching from ${endpoint}:`, error);
