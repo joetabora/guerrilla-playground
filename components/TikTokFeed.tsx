@@ -5,7 +5,8 @@ import { motion } from 'framer-motion';
 
 interface TikTokVideo {
   id: string;
-  embedUrl: string;
+  embedUrl?: string;
+  videoUrl?: string;
   thumbnail: string;
   caption: string;
 }
@@ -51,13 +52,62 @@ const mockTikTokVideos: TikTokVideo[] = [
 ];
 
 export default function TikTokFeed() {
-  const [videos, setVideos] = useState<TikTokVideo[]>(mockTikTokVideos);
+  const [videos, setVideos] = useState<TikTokVideo[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // TODO: Replace with real TikTok API call
-    // For now using mock data
-    setVideos(mockTikTokVideos);
+    const fetchVideos = async () => {
+      try {
+        const response = await fetch('/api/tiktok/videos');
+        const data = await response.json();
+        
+        if (data.videos && data.videos.length > 0) {
+          setVideos(data.videos);
+        } else {
+          // Fallback to mock data if API returns empty
+          setVideos(mockTikTokVideos);
+        }
+      } catch (error) {
+        console.error('Failed to fetch TikTok videos:', error);
+        // Fallback to mock data on error
+        setVideos(mockTikTokVideos);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchVideos();
+    // Refresh every 10 minutes
+    const interval = setInterval(fetchVideos, 10 * 60 * 1000);
+    return () => clearInterval(interval);
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="relative h-full overflow-hidden flex items-center justify-center">
+        <div className="text-neon-orange font-black text-xl">Loading TikTok feed...</div>
+      </div>
+    );
+  }
+
+  if (videos.length === 0) {
+    return (
+      <div className="relative h-full overflow-hidden flex items-center justify-center">
+        <div className="text-white/60 font-black text-sm text-center">
+          No videos available
+          <br />
+          <a
+            href="https://tiktok.com/@suchgrime"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-neon-orange hover:text-neon-cyan transition-colors"
+          >
+            Visit @suchgrime on TikTok
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative h-full overflow-hidden">
@@ -65,7 +115,7 @@ export default function TikTokFeed() {
         {videos.map((video, index) => (
           <motion.a
             key={video.id}
-            href={`https://www.tiktok.com/@suchgrime/video/${video.id}`}
+            href={video.videoUrl || `https://www.tiktok.com/@suchgrime/video/${video.id}`}
             target="_blank"
             rel="noopener noreferrer"
             initial={{ opacity: 0, x: 50 }}

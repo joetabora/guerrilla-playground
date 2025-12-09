@@ -15,21 +15,33 @@ interface Harley {
   url?: string;
 }
 
+interface TikTokVideo {
+  id: string;
+  videoUrl: string;
+  thumbnail: string;
+  caption: string;
+}
+
 export default function GrimesGarageSection() {
   const [featuredHarley, setFeaturedHarley] = useState<Harley | null>(null);
+  const [latestTikTok, setLatestTikTok] = useState<TikTokVideo | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchFeaturedBike = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch('/api/harleys');
-        const data = await response.json();
-        const bikes = data.bikes || [];
-        // Use first bike as featured, or fallback
+        // Fetch both bikes and TikTok videos in parallel
+        const [bikesResponse, tiktokResponse] = await Promise.all([
+          fetch('/api/harleys'),
+          fetch('/api/tiktok/videos'),
+        ]);
+
+        // Handle bikes
+        const bikesData = await bikesResponse.json();
+        const bikes = bikesData.bikes || [];
         if (bikes.length > 0) {
           setFeaturedHarley(bikes[0]);
         } else {
-          // Fallback
           setFeaturedHarley({
             id: '1',
             name: 'Street Glide',
@@ -40,9 +52,24 @@ export default function GrimesGarageSection() {
             url: 'https://joesusedharleys.com',
           });
         }
+
+        // Handle TikTok
+        const tiktokData = await tiktokResponse.json();
+        const videos = tiktokData.videos || [];
+        if (videos.length > 0) {
+          setLatestTikTok(videos[0]); // Use latest video
+        } else {
+          // Fallback
+          setLatestTikTok({
+            id: 'latest',
+            videoUrl: 'https://tiktok.com/@suchgrime',
+            thumbnail: 'https://files.catbox.moe/tiktok-latest.jpg',
+            caption: '$499 ships this bike to you — nationwide',
+          });
+        }
       } catch (error) {
-        console.error('Failed to fetch featured bike:', error);
-        // Fallback
+        console.error('Failed to fetch data:', error);
+        // Fallbacks
         setFeaturedHarley({
           id: '1',
           name: 'Street Glide',
@@ -52,12 +79,18 @@ export default function GrimesGarageSection() {
           image: 'https://files.catbox.moe/harley-1.jpg',
           url: 'https://joesusedharleys.com',
         });
+        setLatestTikTok({
+          id: 'latest',
+          videoUrl: 'https://tiktok.com/@suchgrime',
+          thumbnail: 'https://files.catbox.moe/tiktok-latest.jpg',
+          caption: '$499 ships this bike to you — nationwide',
+        });
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchFeaturedBike();
+    fetchData();
   }, []);
   return (
     <section className="relative py-20 px-4 bg-black border-y-2 border-neon-orange/30">
@@ -97,26 +130,32 @@ export default function GrimesGarageSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="col-span-1"
           >
-            <div className="relative aspect-[9/16] bg-gray-900 border-4 border-neon-orange/50 glitch-container overflow-hidden group">
-              <div
-                className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: 'url(https://files.catbox.moe/tiktok-latest.jpg)' }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <div className="text-neon-orange font-black text-2xl mb-2">
-                  $499 ships this bike to you — nationwide
-                </div>
-                <a
-                  href="https://tiktok.com/@suchgrime"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block mt-4 px-6 py-3 bg-neon-orange text-black font-black uppercase hover:bg-neon-cyan transition-colors"
-                >
-                  Watch on TikTok
-                </a>
+            {isLoading || !latestTikTok ? (
+              <div className="relative aspect-[9/16] bg-gray-900 border-4 border-neon-orange/50 flex items-center justify-center">
+                <div className="text-neon-orange font-black text-xl">Loading latest TikTok...</div>
               </div>
-            </div>
+            ) : (
+              <a
+                href={latestTikTok.videoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block relative aspect-[9/16] bg-gray-900 border-4 border-neon-orange/50 glitch-container overflow-hidden group"
+              >
+                <div
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${latestTikTok.thumbnail})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <div className="text-neon-orange font-black text-2xl mb-2 line-clamp-2">
+                    {latestTikTok.caption || '$499 ships this bike to you — nationwide'}
+                  </div>
+                  <div className="inline-block mt-4 px-6 py-3 bg-neon-orange text-black font-black uppercase hover:bg-neon-cyan transition-colors">
+                    Watch on TikTok
+                  </div>
+                </div>
+              </a>
+            )}
           </motion.div>
 
           {/* Right: Featured Harley */}
