@@ -31,14 +31,12 @@ async function fetchTikTokVideosFromAPI(): Promise<TikTokVideo[]> {
   console.log('[TikTok API] Starting fetch with key:', TIKTOK_API_KEY.substring(0, 10) + '...');
 
   // Try multiple endpoints from tiktok-scraper7
-  // Primary endpoint: /user/story (confirmed working after subscription)
+  // Primary endpoint: /user/posts with user_id (confirmed working)
   const endpoints = [
-    // Primary: user story endpoint (this is the confirmed working one)
+    // Primary: user posts endpoint (requires user_id, not username)
+    `https://tiktok-scraper7.p.rapidapi.com/user/posts?user_id=${TIKTOK_USER_ID}&count=6`,
+    // Fallback: user story endpoint (might return stories from other users)
     `https://tiktok-scraper7.p.rapidapi.com/user/story?user_id=${TIKTOK_USER_ID}`,
-    // Fallback: user posts endpoint
-    `https://tiktok-scraper7.p.rapidapi.com/user/posts?username=${TIKTOK_USERNAME}&count=6`,
-    // Fallback: user profile endpoint
-    `https://tiktok-scraper7.p.rapidapi.com/user/profile?username=${TIKTOK_USERNAME}`,
   ];
 
   for (const endpoint of endpoints) {
@@ -61,7 +59,7 @@ async function fetchTikTokVideosFromAPI(): Promise<TikTokVideo[]> {
         // The /user/story endpoint might return different structures
         let videos: unknown[] = [];
         
-        // Structure 1: data.videos or data.data.videos
+        // Structure 1: data.data.videos (most common for this API)
         if (data.data?.videos && Array.isArray(data.data.videos)) {
           videos = data.data.videos;
         } else if (data.videos && Array.isArray(data.videos)) {
@@ -90,16 +88,30 @@ async function fetchTikTokVideosFromAPI(): Promise<TikTokVideo[]> {
           console.log(`[TikTok API] Found ${videos.length} videos, parsing...`);
           console.log(`[TikTok API] First video structure:`, JSON.stringify(videos[0], null, 2));
           
-          const mappedVideos = videos.slice(0, 6).map((video: unknown) => {
-            const v = video as Record<string, unknown>;
-            
-            // Extract video ID - try multiple field names
-            const videoId = typeof v.id === 'string' ? v.id :
-                          typeof v.aweme_id === 'string' ? v.aweme_id :
-                          typeof v.video_id === 'string' ? v.video_id :
-                          typeof v.item_id === 'string' ? v.item_id :
-                          typeof v.awemeId === 'string' ? v.awemeId :
-                          String(v.id || v.aweme_id || v.video_id || v.item_id || v.awemeId || '');
+          const mappedVideos = videos
+            // Filter to only show videos from @suchgrime
+            .filter((video: unknown) => {
+              const v = video as Record<string, unknown>;
+              const author = v.author as Record<string, unknown> | undefined;
+              if (author) {
+                const authorId = typeof author.id === 'string' ? author.id : String(author.id || '');
+                const uniqueId = typeof author.unique_id === 'string' ? author.unique_id : '';
+                // Match by user_id or unique_id
+                return authorId === TIKTOK_USER_ID || uniqueId === TIKTOK_USERNAME || uniqueId === 'suchgrime';
+              }
+              return false;
+            })
+            .slice(0, 6)
+            .map((video: unknown) => {
+              const v = video as Record<string, unknown>;
+              
+              // Extract video ID - try multiple field names
+              const videoId = typeof v.video_id === 'string' ? v.video_id :
+                            typeof v.aweme_id === 'string' ? v.aweme_id :
+                            typeof v.id === 'string' ? v.id :
+                            typeof v.item_id === 'string' ? v.item_id :
+                            typeof v.awemeId === 'string' ? v.awemeId :
+                            String(v.video_id || v.aweme_id || v.id || v.item_id || v.awemeId || '');
 
             // Build video URL - try multiple formats
             const videoUrl = typeof v.video_url === 'string' ? v.video_url :
@@ -121,7 +133,8 @@ async function fetchTikTokVideosFromAPI(): Promise<TikTokVideo[]> {
                             '';
 
             // Extract caption - try multiple field names
-            const caption = typeof v.desc === 'string' ? v.desc :
+            const caption = typeof v.title === 'string' ? v.title :
+                          typeof v.desc === 'string' ? v.desc :
                           typeof v.text === 'string' ? v.text :
                           typeof v.description === 'string' ? v.description :
                           typeof v.caption === 'string' ? v.caption :
