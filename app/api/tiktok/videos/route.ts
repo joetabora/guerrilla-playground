@@ -54,8 +54,8 @@ async function fetchTikTokVideosFromAPI(): Promise<TikTokVideo[]> {
       if (response.ok) {
         const data = await response.json();
         
-        // Debug: Log the response structure
-        console.log(`[TikTok API] Response from ${endpoint}:`, JSON.stringify(data, null, 2).substring(0, 1000));
+        // Debug: Log the response structure (full response for debugging)
+        console.log(`[TikTok API] Response from ${endpoint}:`, JSON.stringify(data, null, 2));
         
         // Try different response structures
         // The /user/story endpoint might return different structures
@@ -87,49 +87,73 @@ async function fetchTikTokVideosFromAPI(): Promise<TikTokVideo[]> {
         }
 
         if (videos.length > 0) {
+          console.log(`[TikTok API] Found ${videos.length} videos, parsing...`);
+          console.log(`[TikTok API] First video structure:`, JSON.stringify(videos[0], null, 2));
+          
           const mappedVideos = videos.slice(0, 6).map((video: unknown) => {
             const v = video as Record<string, unknown>;
-            // Extract video ID
+            
+            // Extract video ID - try multiple field names
             const videoId = typeof v.id === 'string' ? v.id :
                           typeof v.aweme_id === 'string' ? v.aweme_id :
                           typeof v.video_id === 'string' ? v.video_id :
-                          String(v.id || v.aweme_id || v.video_id || '');
+                          typeof v.item_id === 'string' ? v.item_id :
+                          typeof v.awemeId === 'string' ? v.awemeId :
+                          String(v.id || v.aweme_id || v.video_id || v.item_id || v.awemeId || '');
 
-            // Build video URL
+            // Build video URL - try multiple formats
             const videoUrl = typeof v.video_url === 'string' ? v.video_url :
                           typeof v.url === 'string' ? v.url :
-                          `https://www.tiktok.com/@${TIKTOK_USERNAME}/video/${videoId}`;
+                          typeof v.share_url === 'string' ? v.share_url :
+                          typeof v.webVideoUrl === 'string' ? v.webVideoUrl :
+                          videoId ? `https://www.tiktok.com/@${TIKTOK_USERNAME}/video/${videoId}` : '';
 
-            // Extract thumbnail
+            // Extract thumbnail - try multiple field names
+            const videoObj = v.video as Record<string, unknown> | undefined;
             const thumbnail = typeof v.cover === 'string' ? v.cover :
                             typeof v.thumbnail === 'string' ? v.thumbnail :
                             typeof v.dynamic_cover === 'string' ? v.dynamic_cover :
                             typeof v.origin_cover === 'string' ? v.origin_cover :
                             typeof v.cover_url === 'string' ? v.cover_url :
+                            (videoObj && typeof videoObj.cover === 'string') ? videoObj.cover :
+                            (videoObj && typeof videoObj.dynamicCover === 'string') ? videoObj.dynamicCover :
+                            (videoObj && typeof videoObj.originCover === 'string') ? videoObj.originCover :
                             '';
 
-            // Extract caption
+            // Extract caption - try multiple field names
             const caption = typeof v.desc === 'string' ? v.desc :
                           typeof v.text === 'string' ? v.text :
                           typeof v.description === 'string' ? v.description :
                           typeof v.caption === 'string' ? v.caption :
+                          typeof v.content === 'string' ? v.content :
+                          typeof v.desc_text === 'string' ? v.desc_text :
                           '';
 
-            return {
+            const mapped = {
               id: videoId,
               videoUrl,
               thumbnail,
               caption,
               views: typeof v.play_count === 'number' ? v.play_count :
                     typeof v.view_count === 'number' ? v.view_count :
-                    typeof v.views === 'number' ? v.views : undefined,
+                    typeof v.views === 'number' ? v.views :
+                    (v.statistics && typeof (v.statistics as Record<string, unknown>).playCount === 'number') ? 
+                      (v.statistics as Record<string, unknown>).playCount as number : undefined,
               likes: typeof v.digg_count === 'number' ? v.digg_count :
                     typeof v.like_count === 'number' ? v.like_count :
-                    typeof v.likes === 'number' ? v.likes : undefined,
+                    typeof v.likes === 'number' ? v.likes :
+                    (v.statistics && typeof (v.statistics as Record<string, unknown>).diggCount === 'number') ? 
+                      (v.statistics as Record<string, unknown>).diggCount as number : undefined,
               createdAt: typeof v.create_time === 'string' ? v.create_time :
-                        typeof v.created_at === 'string' ? v.created_at : undefined,
+                        typeof v.created_at === 'string' ? v.created_at :
+                        typeof v.createTime === 'string' ? v.createTime : undefined,
             };
+            
+            console.log(`[TikTok API] Mapped video:`, mapped);
+            return mapped;
           }).filter((v: TikTokVideo) => v.id && v.videoUrl); // Filter out invalid videos
+          
+          console.log(`[TikTok API] Successfully mapped ${mappedVideos.length} videos`);
 
           if (mappedVideos.length > 0) {
             console.log(`Successfully fetched ${mappedVideos.length} videos from ${endpoint}`);
