@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import TwitchEmbed from './TwitchEmbed';
 
 interface Harley {
@@ -11,19 +12,53 @@ interface Harley {
   model: string;
   price: number;
   image: string;
+  url?: string;
 }
 
-// Get featured Harley (first from inventory)
-const featuredHarley: Harley = {
-  id: '1',
-  name: 'Street Glide',
-  year: 2020,
-  model: 'FLHX',
-  price: 18999,
-  image: 'https://files.catbox.moe/harley-1.jpg',
-};
-
 export default function GrimesGarageSection() {
+  const [featuredHarley, setFeaturedHarley] = useState<Harley | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchFeaturedBike = async () => {
+      try {
+        const response = await fetch('/api/harleys');
+        const data = await response.json();
+        const bikes = data.bikes || [];
+        // Use first bike as featured, or fallback
+        if (bikes.length > 0) {
+          setFeaturedHarley(bikes[0]);
+        } else {
+          // Fallback
+          setFeaturedHarley({
+            id: '1',
+            name: 'Street Glide',
+            year: 2020,
+            model: 'FLHX',
+            price: 18999,
+            image: 'https://files.catbox.moe/harley-1.jpg',
+            url: 'https://joesusedharleys.com',
+          });
+        }
+      } catch (error) {
+        console.error('Failed to fetch featured bike:', error);
+        // Fallback
+        setFeaturedHarley({
+          id: '1',
+          name: 'Street Glide',
+          year: 2020,
+          model: 'FLHX',
+          price: 18999,
+          image: 'https://files.catbox.moe/harley-1.jpg',
+          url: 'https://joesusedharleys.com',
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchFeaturedBike();
+  }, []);
   return (
     <section className="relative py-20 px-4 bg-black border-y-2 border-neon-orange/30">
       <div className="max-w-7xl mx-auto">
@@ -92,32 +127,40 @@ export default function GrimesGarageSection() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="col-span-1"
           >
-            <div className="relative h-full bg-gray-900 border-4 border-neon-cyan/50 overflow-hidden group">
-              <div className="relative aspect-square">
-                <Image
-                  src={featuredHarley.image}
-                  alt={`${featuredHarley.year} ${featuredHarley.name}`}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
-                  unoptimized
-                />
+            {isLoading || !featuredHarley ? (
+              <div className="relative h-full bg-gray-900 border-4 border-neon-cyan/50 flex items-center justify-center">
+                <div className="text-neon-cyan font-black text-xl">Loading featured bike...</div>
               </div>
-              <div className="p-6">
-                <div className="text-xl font-black text-white mb-1">
-                  {featuredHarley.year} {featuredHarley.name}
+            ) : (
+              <div className="relative h-full bg-gray-900 border-4 border-neon-cyan/50 overflow-hidden group">
+                <div className="relative aspect-square">
+                  <Image
+                    src={featuredHarley.image}
+                    alt={`${featuredHarley.year} ${featuredHarley.name}`}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    unoptimized
+                  />
                 </div>
-                <div className="text-sm text-neon-orange mb-2">{featuredHarley.model}</div>
-                <div className="text-3xl font-black text-neon-cyan mb-4">
-                  ${featuredHarley.price.toLocaleString()}
+                <div className="p-6">
+                  <div className="text-xl font-black text-white mb-1">
+                    {featuredHarley.year} {featuredHarley.name}
+                  </div>
+                  <div className="text-sm text-neon-orange mb-2">{featuredHarley.model}</div>
+                  <div className="text-3xl font-black text-neon-cyan mb-4">
+                    ${featuredHarley.price.toLocaleString()}
+                  </div>
+                  <a
+                    href={featuredHarley.url || `sms:4144396211?body=Hey%20Joe%2C%20I%27m%20interested%20in%20the%20${featuredHarley.year}%20${featuredHarley.name}!`}
+                    target={featuredHarley.url ? '_blank' : undefined}
+                    rel={featuredHarley.url ? 'noopener noreferrer' : undefined}
+                    className="block w-full py-4 bg-neon-orange text-black font-black text-lg uppercase text-center hover:bg-neon-cyan transition-colors shadow-[0_0_20px_rgba(255,102,0,0.6)]"
+                  >
+                    {featuredHarley.url ? 'VIEW ON SITE' : 'TEXT JOE TO BUY'}
+                  </a>
                 </div>
-                <a
-                  href="sms:4144396211?body=Hey%20Joe%2C%20I%27m%20interested%20in%20the%202020%20Street%20Glide!"
-                  className="block w-full py-4 bg-neon-orange text-black font-black text-lg uppercase text-center hover:bg-neon-cyan transition-colors shadow-[0_0_20px_rgba(255,102,0,0.6)]"
-                >
-                  TEXT JOE TO BUY
-                </a>
               </div>
-            </div>
+            )}
           </motion.div>
         </div>
       </div>

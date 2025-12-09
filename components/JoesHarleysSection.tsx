@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 interface Harley {
   id: string;
@@ -10,50 +11,33 @@ interface Harley {
   model: string;
   price: number;
   image: string;
-  mileage: number;
+  mileage?: number;
+  url?: string;
 }
 
-// Mock inventory - replace with real data
-const inventory: Harley[] = [
-  {
-    id: '1',
-    name: 'Street Glide',
-    year: 2020,
-    model: 'FLHX',
-    price: 18999,
-    image: 'https://files.catbox.moe/harley-1.jpg',
-    mileage: 8500
-  },
-  {
-    id: '2',
-    name: 'Sportster',
-    year: 2019,
-    model: 'XL883',
-    price: 8999,
-    image: 'https://files.catbox.moe/harley-2.jpg',
-    mileage: 12000
-  },
-  {
-    id: '3',
-    name: 'Fat Boy',
-    year: 2021,
-    model: 'FLFB',
-    price: 21999,
-    image: 'https://files.catbox.moe/harley-3.jpg',
-    mileage: 3500
-  },
-  {
-    id: '4',
-    name: 'Road King',
-    year: 2018,
-    model: 'FLHR',
-    price: 16999,
-    image: 'https://files.catbox.moe/harley-4.jpg',
-    mileage: 15000
-  }
-];
-
 export default function JoesHarleysSection() {
+  const [inventory, setInventory] = useState<Harley[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBikes = async () => {
+      try {
+        const response = await fetch('/api/harleys');
+        const data = await response.json();
+        setInventory(data.bikes || []);
+      } catch (error) {
+        console.error('Failed to fetch bikes:', error);
+        // Fallback to empty array - component will show loading state
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBikes();
+    // Refresh every 5 minutes
+    const interval = setInterval(fetchBikes, 5 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, []);
   return (
     <section className="relative py-20 px-4 bg-black border-y-2 border-neon-orange/30">
       <div className="max-w-7xl mx-auto">
@@ -83,8 +67,25 @@ export default function JoesHarleysSection() {
         </motion.div>
 
         {/* Inventory Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {inventory.map((bike, index) => (
+        {isLoading ? (
+          <div className="text-center py-20">
+            <div className="text-neon-orange font-black text-2xl">Loading bikes from joesusedharleys.com...</div>
+          </div>
+        ) : inventory.length === 0 ? (
+          <div className="text-center py-20">
+            <div className="text-white/60 font-black text-xl">No bikes available. Check back soon!</div>
+            <a
+              href="https://joesusedharleys.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-4 px-8 py-3 bg-neon-orange text-black font-black uppercase hover:bg-neon-cyan transition-colors"
+            >
+              Visit joesusedharleys.com
+            </a>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {inventory.map((bike, index) => (
             <motion.div
               key={bike.id}
               initial={{ opacity: 0, y: 20 }}
@@ -108,17 +109,25 @@ export default function JoesHarleysSection() {
                   {bike.year} {bike.name}
                 </div>
                 <div className="text-sm text-neon-orange mb-2">{bike.model}</div>
-                <div className="text-sm text-white/60 mb-3">{bike.mileage.toLocaleString()} miles</div>
+                {bike.mileage && (
+                  <div className="text-sm text-white/60 mb-3">{bike.mileage.toLocaleString()} miles</div>
+                )}
                 <div className="text-2xl font-black text-neon-cyan">
                   ${bike.price.toLocaleString()}
                 </div>
-                <button className="w-full mt-4 py-2 bg-neon-orange text-black font-black uppercase hover:bg-neon-cyan transition-colors">
-                  View Details
-                </button>
+                <a
+                  href={bike.url || `sms:4144396211?body=Hey%20Joe%2C%20I%27m%20interested%20in%20the%20${bike.year}%20${bike.name}!`}
+                  target={bike.url ? '_blank' : undefined}
+                  rel={bike.url ? 'noopener noreferrer' : undefined}
+                  className="block w-full mt-4 py-2 bg-neon-orange text-black font-black uppercase hover:bg-neon-cyan transition-colors text-center"
+                >
+                  {bike.url ? 'View Details' : 'Text Joe'}
+                </a>
               </div>
             </motion.div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Floating Text Joe Button */}
         <motion.div
@@ -127,7 +136,7 @@ export default function JoesHarleysSection() {
             className="fixed bottom-6 right-6 z-50"
           >
             <motion.a
-              href="sms:+1234567890?body=Hey%20Joe%2C%20I%27m%20interested%20in%20a%20Harley!"
+              href="sms:4144396211?body=Hey%20Joe%2C%20I%27m%20interested%20in%20a%20Harley!"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               className="block w-20 h-20 bg-neon-orange rounded-full flex items-center justify-center text-black font-black text-2xl shadow-[0_0_30px_rgba(255,102,0,0.8)] hover:bg-neon-cyan hover:shadow-[0_0_40px_rgba(0,255,255,0.8)] transition-all"
