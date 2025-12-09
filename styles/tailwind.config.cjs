@@ -16,7 +16,12 @@ module.exports = {
         magenta: '#FF2D95',
         lime: '#A6FF00',
         cyan: '#00FFD6',
-        white: '#FFFFFF'
+        white: '#FFFFFF',
+        // Toxico aesthetic colors
+        'neon-cyan': '#00FFFF',
+        'neon-orange': '#FF6600',
+        'toxic-black': '#000000',
+        'distressed-gray': '#1a1a1a'
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],

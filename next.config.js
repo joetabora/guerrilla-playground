@@ -17,6 +17,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'placehold.co'
+      },
+      {
+        protocol: 'https',
+        hostname: 'files.catbox.moe'
       }
     ],
     dangerouslyAllowSVG: true,

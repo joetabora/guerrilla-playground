@@ -1,8 +1,10 @@
 # Guerrilla Social Club
 
-**Creator-led creative that actually moves culture.**
+**Gaming. Harleys. Filth. One crew.**
 
-A high-energy, trend-setting influencer marketing agency website with a Social Creator Culture / Edgy Streetwear aesthetic. Built with Next.js, TypeScript, Tailwind CSS, and Framer Motion.
+A single-page digital punk clubhouse fusing "Such Grime" gaming persona with "Joe's Used Harleys" business. Built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.
+
+**Toxico.co.uk aesthetic:** Black backgrounds, neon cyan/orange accents, distressed textures, urban grit, insane energy.
 
 ## 🚀 Quick Start
 
@@ -37,703 +39,93 @@ npm start
 
 ```
 guerrilla-playground/
-├── app/                    # Next.js App Router pages
-│   ├── layout.tsx         # Root layout with Header/Footer/LiveCreatorBar
-│   ├── page.tsx           # Home page
-│   ├── work/              # Case studies listing
-│   │   └── [slug]/        # Dynamic case study pages
-│   ├── admin/             # Admin routes (dev-only)
-│   │   └── preview/       # Case studies & activity editor
-│   ├── services/          # Services page
-│   ├── creators/          # Creator signup page with CreatorCards
-│   ├── brands/            # Brand pitch page
-│   ├── contact/           # Contact form page
-│   ├── about/             # About/team page
-│   ├── actions/           # Server actions
-│   └── globals.css        # Global styles
-├── data/                  # JSON data files
-│   ├── case-studies.json  # Case study content
-│   └── activity.json      # Live activity feed data
+├── app/
+│   ├── layout.tsx         # Root layout
+│   ├── page.tsx           # Single-page site
+│   └── globals.css        # Global styles (Toxico aesthetic)
 ├── components/
-│   ├── CreatorCard.tsx    # Interactive flip card component
-│   ├── LiveCreatorBar.tsx # Marquee activity feed
-│   ├── MiniPlayer.tsx     # Sticky video player
-│   └── ...                # Other components
-├── lib/
-│   ├── case-studies.ts    # Case study utilities
-│   └── activity.ts        # Activity feed utilities
-└── scripts/
-    └── pushActivity.js    # CLI script to add activities
-├── components/            # React components
-│   ├── Header.tsx         # Sticky navigation
-│   ├── Footer.tsx         # Site footer
-│   ├── HeroKinetic.tsx    # Kinetic typography hero
-│   ├── ReelGrid.tsx       # Auto-play reel grid
-│   ├── CaseStudyCard.tsx  # Case study cards
-│   ├── ContactForm.tsx    # Contact form with confetti
-│   ├── CreatorSignupForm.tsx # Creator signup form
-│   ├── Sticker.tsx        # Sticker component
-│   ├── MicroInteractions.tsx # Hover/tilt utilities
-│   └── AnimatedGradientOrb.tsx # Animated gradient orb
-├── lib/                   # Utilities
-│   ├── seo.ts            # SEO metadata helpers
-│   ├── email.ts          # Email sending (stub)
-│   └── analytics.ts      # Analytics (stub)
+│   ├── HeroSection.tsx           # Full-screen hero with split background
+│   ├── LiveStreamSection.tsx     # Twitch/Kick embed with countdown
+│   ├── TheClubSection.tsx        # Discord invite + member count
+│   ├── JoesHarleysSection.tsx     # Harley inventory grid
+│   ├── ContentGridSection.tsx    # Gaming clips + Harley vlogs
+│   ├── SocialsGridSection.tsx    # Social media icons
+│   ├── NewsletterSignupSection.tsx # Email + SMS signup
+│   └── Footer.tsx                # Footer
 ├── public/                # Static assets
-│   ├── brand-logo.svg    # Logo (replace with actual)
-│   ├── favicon.ico       # Favicon (replace)
-│   └── images/           # Image assets
-└── styles/               # Tailwind config
-    └── tailwind.config.cjs
+└── styles/
+    └── tailwind.config.cjs # Tailwind configuration
 ```
 
 ## 🎨 Design System
 
 ### Colors
-
-- **Charcoal**: `#1a1a1a` (background)
-- **Ink**: `#0f0f0f` (darker surfaces)
-- **Magenta**: `#FF2D95` (primary accent)
-- **Lime**: `#A6FF00` (secondary accent)
-- **Cyan**: `#00FFD6` (tertiary accent)
-- **White**: `#FFFFFF` (text)
+- **Neon Cyan:** `#00FFFF` - Primary accent
+- **Neon Orange:** `#FF6600` - Secondary accent
+- **Toxic Black:** `#000000` - Background
+- **Distressed Gray:** `#1a1a1a` - Secondary background
 
 ### Typography
+- System fonts with bold, black weights
+- Kinetic typography with letter-level animations
+- Tight letter spacing for edgy look
 
-- **Font**: Inter (Google Fonts)
-- **Headings**: Bold, uppercase, tight tracking
-- **Kinetic Typography**: Letter-level animations on hero
+## 📝 Sections
 
-### Components
+1. **Hero** - Full-screen split background (gaming left, Harley right) with blended logo
+2. **Live Stream** - Twitch/Kick embed with countdown timer
+3. **The Club** - Discord invite, live member count, Filth Fam shoutouts
+4. **Joe's Used Harleys** - Inventory grid with $499 shipping banner, floating "Text Joe" button
+5. **Content Grid** - Best gaming clips + Harley vlogs
+6. **Socials Grid** - Huge clickable icons for all platforms
+7. **Newsletter Signup** - Email + SMS signup form
 
-- **Stickers**: Rotated, clipped-path elements with shadows
-- **Tilt Cards**: 3D hover effects
-- **Gradient Orbs**: Animated background elements
-- **Confetti**: Canvas confetti on form success
+## 🖼️ Image Assets
 
-## 🚢 Deployment on Vercel
+All images should be hosted on `catbox.moe` with permanent URLs. Update these in the components:
 
-### Step 1: Connect Repository
-
-1. Go to [vercel.com](https://vercel.com)
-2. Click "New Project"
-3. Import your GitHub repository
-4. Select the `guerrilla-playground` repository
-
-### Step 2: Configure Environment Variables
-
-In Vercel dashboard → Settings → Environment Variables, add:
-
-```
-SENDGRID_API_KEY=your_sendgrid_api_key (optional, for email)
-NEXT_PUBLIC_SITE_URL=https://yourdomain.com
-```
-
-### Step 3: Deploy
-
-1. Vercel will auto-detect Next.js
-2. Click "Deploy"
-3. Your site will be live at `yourproject.vercel.app`
-
-### Step 4: Custom Domain (Optional)
-
-1. Go to Settings → Domains
-2. Add your custom domain
-3. Follow DNS configuration instructions
-
-## 📝 Content Management (Phase 1)
-
-### Adding Case Studies
-
-Case studies are now data-driven from `/data/case-studies.json`. To add a new case study:
-
-1. **Edit the JSON file directly:**
-   ```bash
-   # Open data/case-studies.json
-   # Add a new case study object with:
-   # - id, title, brand, description, slug
-   # - thumbnail (image URL)
-   # - metrics array
-   # - content object (challenge, solution, results, creators, highlights)
-   ```
-
-2. **Or use the Admin Preview:**
-   - Visit `/admin/preview` in your browser
-   - Edit the Case Studies JSON editor
-   - Click "Save Case Studies"
-
-3. **Case study structure:**
-   ```json
-   {
-     "id": "unique-id",
-     "title": "Case Study Title",
-     "brand": "Brand Name",
-     "description": "Brief description",
-     "slug": "url-friendly-slug",
-     "thumbnail": "/images/case-1.jpg",
-     "published": true,
-     "date": "2024-01-15",
-     "category": "Fashion",
-     "metrics": [
-       { "label": "Impressions", "value": "5.2M", "change": "320%" }
-     ],
-     "content": {
-       "challenge": "...",
-       "solution": "...",
-       "results": "...",
-       "creators": ["@creator1", "@creator2"],
-       "highlights": ["Highlight 1", "Highlight 2"]
-     }
-   }
-   ```
-
-4. **View case study:**
-   - Case studies automatically appear on `/work`
-   - Individual pages are at `/work/[slug]`
-
-### Adding Creator Cards
-
-Creator cards are displayed on the `/creators` page. To add creators:
-
-1. **Edit `app/creators/page.tsx`:**
-   ```typescript
-   const featuredCreators = [
-     {
-       id: '1',
-       handle: 'creator_handle',
-       avatar: '/images/creators/creator-1.svg',
-       niche: 'Fashion',
-       stat: '250K',
-       statLabel: 'Followers',
-       videoPreview: '/videos/creator-preview.webm', // Optional
-       profileUrl: '/creators',
-       bookUrl: '/contact'
-     }
-   ];
-   ```
-
-2. **Add creator assets:**
-   - Place avatar images in `/public/images/creators/`
-   - Add video previews (webm/mp4) for flip card back side
-
-### Adding Activity Events
-
-The live creator bar shows real-time activity. To add events:
-
-1. **Using the CLI script:**
-   ```bash
-   node scripts/pushActivity.js "New creator joined" creator 🎬
-   node scripts/pushActivity.js "Campaign launched" campaign 🚀
-   node scripts/pushActivity.js "Milestone reached" achievement 🎉
-   ```
-
-2. **Or edit JSON directly:**
-   - Edit `/data/activity.json`
-   - Add new event objects with: id, type, message, timestamp, icon
-
-3. **Or use Admin Preview:**
-   - Visit `/admin/preview`
-   - Edit Activity Feed JSON editor
-   - Click "Save Activities"
-
-### Updating Featured Reels
-
-Edit `app/page.tsx` and update the `featuredReels` array:
-
-```typescript
-const featuredReels = [
-  {
-    id: '1',
-    thumbnail: '/images/reels/reel-1.svg',
-    title: 'Campaign Title',
-    brand: 'Brand Name',
-    videoUrl: '/videos/reel-1.mp4', // Optional - for MiniPlayer
-    views: '2.5M',
-    engagement: '15%'
-  }
-];
-```
-
-**MiniPlayer Features:**
-- Click any reel thumbnail to open MiniPlayer (bottom-left)
-- MiniPlayer autoplays muted video
-- Hover to pause video
-- Close button to dismiss
-- Preloads thumbnails, lazy-loads full video assets
-
-### Updating Team
-
-Edit `app/about/page.tsx` and update the `team` array.
-
-## 🖼️ Assets & Branding
-
-### Logo
-
-**Current**: Placeholder SVG at `/public/brand-logo.svg`
-
-**To Replace**: 
-1. Replace `/public/brand-logo.svg` with your actual logo
-2. Or update the Image src in `components/Header.tsx` and `components/Footer.tsx` to point to `/brand-logo.png`
-
-**Note**: The original logo file should be at `/mnt/data/A_flat,_vector_graphic_icon_features_a_stylized_ga.png` - copy this to `/public/brand-logo.png` or convert to SVG.
-
-### Images
-
-Replace placeholder images in `/public/images/`:
-
-- `reel-1.jpg` through `reel-6.jpg` - Reel thumbnails (9:16 aspect ratio)
-- `case-1.jpg`, `case-2.jpg`, `case-3.jpg` - Case study images
-- `case-1-before.jpg`, `case-1-after.jpg` - Before/after images
-- `team-1.jpg` through `team-4.jpg` - Team member photos (square)
-
-### Favicon
-
-Replace `/public/favicon.ico` with your actual favicon.
-
-### Open Graph Image
-
-Create `/public/og-image.png` (1200x630px) for social sharing.
+- `guerrilla-logo.png` - Blended logo (Toxico skull + Harley bar-and-shield)
+- `placeholder-gaming.jpg` - Gaming clips background
+- `placeholder-harley.jpg` - Harley footage background
+- `harley-*.jpg` - Inventory images
+- `gaming-clip-*.jpg` - Gaming content thumbnails
+- `harley-vlog-*.jpg` - Harley vlog thumbnails
+- `grain-texture.png` - Distressed texture overlay
 
 ## 🔧 Configuration
 
-### Email Setup
+### Next.js Config
+- External images from `files.catbox.moe` are allowed
+- Optimized for Vercel deployment
 
-1. Edit `lib/email.ts`
-2. Uncomment SendGrid or SMTP configuration
-3. Add environment variables:
-   - `SENDGRID_API_KEY` (for SendGrid)
-   - Or SMTP credentials
+### Environment Variables
+No environment variables required for basic functionality. Add these for enhanced features:
+- `DISCORD_WEBHOOK_URL` - For Discord member count (optional)
+- `NEWSLETTER_API_KEY` - For newsletter signup (optional)
+- `SMS_API_KEY` - For SMS alerts (optional)
 
-### Analytics
+## 🚀 Deployment
 
-1. Edit `lib/analytics.ts`
-2. Add your analytics provider (Google Analytics, Plausible, etc.)
-3. Add `NEXT_PUBLIC_GA_ID` to environment variables if using GA
+### Vercel (Recommended)
+
+1. Push to GitHub
+2. Import repository in Vercel
+3. Deploy automatically
+
+The site is optimized for Vercel and will deploy automatically on push to main.
+
+## 📱 Mobile-First
+
+The site is fully responsive and mobile-optimized. All sections adapt beautifully to mobile screens.
 
 ## 🎯 Features
 
-- ✅ Kinetic typography with letter-level animations
-- ✅ Auto-play reel grid with hover-to-pause
-- ✅ 3D tilt card interactions
-- ✅ Confetti on form success
-- ✅ Sticker-style UI elements
-- ✅ Animated gradient orbs
-- ✅ Mobile-first responsive design
-- ✅ SEO optimized with metadata
-- ✅ Accessibility features (ARIA labels, focus states)
-- ✅ Server actions for form handling
-- ✅ Image optimization with next/image
-
-## 🐛 Troubleshooting
-
-### Build Errors
-
-If you see TypeScript errors:
-```bash
-npm run build
-```
-
-Check for:
-- Missing image files (replace placeholders)
-- Type errors in components
-- Missing environment variables (optional)
-
-### Images Not Loading
-
-- Ensure images are in `/public/images/`
-- Use correct paths (e.g., `/images/reel-1.jpg`)
-- Check file extensions match
-
-### Confetti Not Working
-
-- Ensure `canvas-confetti` is installed: `npm install canvas-confetti`
-- Check browser console for errors
-
-## 📚 Tech Stack
-
-- **Framework**: Next.js 14 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Forms**: React Server Actions
-- **Confetti**: canvas-confetti
-- **Deployment**: Vercel
+- **Single-page design** - Smooth scrolling between sections
+- **Toxico aesthetic** - Punk/goth/hip-hop/tattoo art style
+- **Fast performance** - Optimized images and lazy loading
+- **Accessible** - ARIA labels and keyboard navigation
+- **Animated** - Framer Motion animations throughout
 
 ## 📄 License
 
-Private - All rights reserved
-
-## 🤝 Support
-
-For questions or issues, contact the development team.
-
-## 🎯 Phase 2 Features
-
-### Brief Builder
-
-Create detailed project briefs with a multi-step form that generates PDFs and saves to JSON.
-
-**Route:** `/brief-builder`
-
-**Features:**
-- 5-step guided form (Brand Info → Goals → Deliverables → Budget → Timeline)
-- PDF generation on submit
-- Saves to `/data/briefs.json`
-- Email stub (logs to console)
-- Confetti animation on success
-
-**Testing:**
-1. Visit `/brief-builder`
-2. Complete all 5 steps
-3. Submit the form
-4. PDF will download automatically
-5. Check console for email stub log
-6. Check `/data/briefs.json` for saved brief
-
-### Creator Personality Quiz
-
-Take a personality quiz to discover your creator type and earn a badge.
-
-**Route:** `/creator-quiz`
-
-**Features:**
-- 8 personality questions
-- 5 badge types: Visionary, Trendsetter, Maverick, Connector, Storyteller
-- Badge saved to `/data/creator-badges.json`
-- Animated result card with confetti
-
-**Testing:**
-1. Visit `/creator-quiz`
-2. Answer all 8 questions
-3. View your badge result
-4. Check `/data/creator-badges.json` for saved badge
-
-**Badge Types:**
-- **The Visionary** ✨ - Sees possibilities others don't
-- **The Trendsetter** 🔥 - Always ahead of the curve
-- **The Maverick** ⚡ - Breaks rules and creates own path
-- **The Connector** 🤝 - Builds bridges and communities
-- **The Storyteller** 📖 - Weaves narratives that move people
-
-### Trends Radar
-
-Visualize trending topics across creator categories with an interactive radial heatmap.
-
-**Route:** `/trends-radar`
-
-**Features:**
-- SVG-based radial visualization
-- 4 categories: Beauty, Lifestyle, Gaming, Tech
-- Animated trend sectors
-- Color-coded intensity (Magenta = High, Lime = Medium, Cyan = Low)
-- Switch between categories
-
-**Testing:**
-1. Visit `/trends-radar`
-2. Click category buttons to switch views
-3. Watch trend sectors animate on load
-4. View intensity percentages
-
-**Adding Trends:**
-Edit `/data/trends.json` and add trend objects:
-```json
-{
-  "name": "Trend Name",
-  "intensity": 85,
-  "angle": 45
-}
-```
-
-### Global UI Enhancements
-
-**Parallax Backgrounds:**
-- Subtle parallax effects on hero sections
-- No performance impact
-- Smooth animations
-
-**Micro-interactions:**
-- Ripple effects on buttons (use `RippleButton` component)
-- Scroll-based fade reveals (use `ScrollReveal` component)
-- Enhanced color tokens with neon-graffiti aesthetic
-
-**Components:**
-- `RippleButton` - Adds ripple effect on click
-- `ScrollReveal` - Fades in elements on scroll
-
-## 🎬 Phase 3 Features
-
-### AI Creative Concept Generator
-
-Generate AI-powered creative concepts for campaigns with hooks, scripts, and visual directions.
-
-**Route:** `/creative-generator`
-
-**Features:**
-- Multi-field form (campaign name, product summary, target audience, mood/tone, CTA, creativity level)
-- AI integration with LLM provider (or smart mock fallback)
-- 3 concept cards with animated reveal
-- Save to brief or export PDF
-- Confetti animation on success
-
-**Setup:**
-1. Add to `.env`:
-   ```
-   LLM_PROVIDER_URL=https://api.your-llm-provider.com/v1/chat/completions
-   LLM_PROVIDER_KEY=your-api-key-here
-   ```
-2. If not set, uses smart mock templates (no API needed)
-
-**Testing:**
-1. Visit `/creative-generator`
-2. Fill out the form
-3. Click "Generate Concepts"
-4. View 3 animated concept cards
-5. Check `/data/concepts.json` for saved concepts
-6. Click "Export PDF" to download concept PDF
-
-### Animated Cinematic Case Studies
-
-Full-screen animated player with metric counters and swipeable creative frames.
-
-**Features:**
-- Animated metric counters (count up from baseline to result)
-- Swipeable creative frames
-- Full-screen overlay with smooth animations
-- Auto-generate intro frame option
-
-**Testing:**
-1. Visit any case study page (e.g., `/work/streetwear-launch`)
-2. Click "🎬 Play Cinematic" button
-3. Watch metrics animate upward
-4. Swipe left/right to navigate frames
-5. Click "Generate Animated Intro" for mock intro generation
-
-### Social Mention Visualization
-
-Real-time visualization of social media mentions across platforms.
-
-**Route:** `/social-mentions`
-
-**Features:**
-- Particle/timeline canvas visualization
-- Platform filters (TikTok, Instagram, Twitter)
-- Play/pause and speed controls
-- Seed button to add test mentions
-- Real-time polling (every 5 seconds)
-
-**Testing:**
-1. Visit `/social-mentions`
-2. Click "Seed" button to add test mentions
-3. Filter by platform using buttons
-4. Adjust playback speed with slider
-5. View mentions list below visualization
-6. Check `/data/mentions.json` for saved mentions
-
-**CLI Script:**
-```bash
-node scripts/simulateMentions.js
-node scripts/simulateMentions.js --count=10
-```
-
-### Admin Console
-
-Enhanced admin interface for managing data and seeding content.
-
-**Route:** `/admin/console`
-
-**Features:**
-- Seed creative concepts with example prompts
-- Seed social mention events
-- View all JSON data files
-- Quick access to admin preview
-
-**Testing:**
-1. Visit `/admin/console`
-2. Click "Seed Concepts" to add example concepts
-3. Click "Seed Mentions" to add test mentions
-4. View JSON data in read-only editors
-5. Click "View All Data" to go to admin preview
-
-## 🚀 Phase 5 Features
-
-### Creator Verification System
-
-Verify creator accounts with ID documents and content links.
-
-**Route:** `/verify`
-
-**Features:**
-- Upload ID documents (stored locally in `/data/uploads`)
-- Submit sample content links
-- Auto-check for suspicious accounts (handle similarity)
-- Admin approval workflow
-
-**Testing:**
-1. Visit `/verify`
-2. Fill out verification form
-3. Upload ID document (mock)
-4. Add content links
-5. Submit verification
-6. Check `/admin/console` to approve/reject
-
-### CRM & Campaign Management
-
-Full CRUD interface for managing clients, briefs, proposals, and campaigns.
-
-**Route:** `/crm`
-
-**Features:**
-- Client management
-- Brief creation and tracking
-- Proposal workflow: draft → review → approve → archive
-- Comments thread for proposals
-- Campaign tracking
-
-**Testing:**
-1. Visit `/crm`
-2. Switch between tabs (Clients, Briefs, Proposals, Campaigns)
-3. Add new clients
-4. Create proposals
-5. Add comments to proposals
-6. Change proposal status
-
-**Data Storage:** All data saved to `/data/crm.json`
-
-### Billing & Invoices
-
-Invoice management with PDF generation.
-
-**Route:** `/billing`
-
-**Features:**
-- Invoice list with status tracking
-- Create invoice modal
-- PDF generation
-- Stripe integration stubs
-
-**Testing:**
-1. Visit `/billing`
-2. Click "Create Invoice"
-3. Fill out invoice details
-4. Generate PDF (downloads automatically)
-
-**Stripe Integration:**
-- Add `STRIPE_SECRET_KEY` and `STRIPE_PUBLISHABLE_KEY` to `.env`
-- Replace mock invoice creation with Stripe API calls
-- See comments in `/app/api/create-invoice/route.ts`
-
-### Automation Pipelines
-
-Connect concept generator to proposal builder.
-
-**Features:**
-- "Create Proposal" button on concept cards
-- Auto-populates proposal builder with concept data
-- Scheduled reports script (`scripts/scheduleReports.js`)
-
-**Testing:**
-1. Generate concepts at `/creative-generator`
-2. Click "Create Proposal" on any concept card
-3. Proposal builder opens with pre-filled data
-
-**Scheduled Reports:**
-```bash
-node scripts/scheduleReports.js
-# Or schedule with cron: 0 0 * * 0 (weekly)
-```
-
-### Campaign Dashboard & Analytics
-
-Real-time campaign KPIs and visualizations.
-
-**Route:** `/dashboard`
-
-**Features:**
-- Top KPIs: Impressions, Clicks, Conversions, Revenue
-- Line chart: Impressions over time
-- Bar chart: Engagement by platform
-- CSV export functionality
-
-**Testing:**
-1. Visit `/dashboard`
-2. View KPI cards
-3. Review charts
-4. Click "Export CSV Report"
-
-### Access Control
-
-Role-based authentication system (mock).
-
-**Features:**
-- Three roles: admin, brand, creator
-- Mock magic link authentication
-- localStorage-based sessions
-- Role-based access checks
-
-**Testing:**
-1. Use `AuthProvider` in your app
-2. Call `login(email)` with user email from `/data/users.json`
-3. Check role with `hasRole('admin')`
-4. Logout with `logout()`
-
-**Production Migration:**
-- Replace with NextAuth.js, Auth0, or Clerk
-- See comments in `/components/AuthProvider.tsx`
-
-### Admin Tools & Audit
-
-Admin console with verification management and audit logging.
-
-**Route:** `/admin/console`
-
-**Features:**
-- View pending verifications
-- Approve/reject creator verifications
-- Adjust campaign budgets (mock)
-- Push notifications (mock)
-- Audit log in `/data/audit.json`
-
-**Testing:**
-1. Visit `/admin/console`
-2. Click "View Pending Verifications"
-3. Approve/reject verifications via API
-4. Check `/data/audit.json` for logged actions
-
-### PWA Support
-
-Progressive Web App with offline capabilities.
-
-**Features:**
-- PWA manifest (`/public/manifest.json`)
-- Service worker for offline caching
-- Mobile-optimized portal (`/portal/mobile`)
-
-**Testing:**
-1. Build and deploy site
-2. Visit on mobile device
-3. Add to home screen
-4. Test offline functionality
-
-### Security & Data Migration
-
-**File Uploads:**
-- Currently stored in `/data/uploads` (local)
-- Production: Use S3, Cloudinary, or similar
-- See comments in `/app/api/save-verification/route.ts`
-
-**Database Migration:**
-- All data currently in `/data/*.json` files
-- To migrate to database:
-  1. Choose database (PostgreSQL, MongoDB, etc.)
-  2. Replace `fs.readFileSync` with database queries
-  3. Update all API routes
-  4. See migration notes in API route comments
-
-**Environment Variables:**
-- Copy `.env.example` to `.env`
-- Add your API keys (Stripe, LLM, Sentry, etc.)
-- Never commit `.env` to git
-
----
-
-**Built with ❤️ by Guerrilla Social Club**
+Private project - All rights reserved.

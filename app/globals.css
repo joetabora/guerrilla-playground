@@ -7,20 +7,20 @@
 @tailwind utilities;
 
 :root {
-  --color-bg: #1a1a1a;
-  --color-ink: #0f0f0f;
+  --color-bg: #000000;
+  --color-ink: #0a0a0a;
   --color-magenta: #FF2D95;
   --color-lime: #A6FF00;
-  --color-cyan: #00FFD6;
+  --color-cyan: #00FFFF;
+  --color-orange: #FF6600;
   --color-white: #FFFFFF;
-  --grain-opacity: 0.05;
+  --grain-opacity: 0.08;
   
-  /* Neon-graffiti accent colors */
-  --neon-pink: #FF2D95;
-  --neon-green: #A6FF00;
-  --neon-cyan: #00FFD6;
-  --neon-purple: #B026FF;
-  --neon-yellow: #FFD600;
+  /* Toxico aesthetic colors */
+  --neon-cyan: #00FFFF;
+  --neon-orange: #FF6600;
+  --toxic-black: #000000;
+  --distressed-gray: #1a1a1a;
 }
 
 * {
@@ -46,7 +46,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Subtle grain texture overlay */
+/* Distressed grain texture overlay - Toxico style */
 body::before {
   content: '';
   position: fixed;
@@ -55,9 +55,10 @@ body::before {
   width: 100%;
   height: 100%;
   opacity: var(--grain-opacity);
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 9999;
+  mix-blend-mode: overlay;
 }
 
 a {

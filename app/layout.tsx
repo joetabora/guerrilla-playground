@@ -5,9 +5,7 @@ import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import './globals.css';
 import { Inter } from 'next/font/google';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import LiveCreatorBar from '@/components/LiveCreatorBar';
+// Single-page site - no header/footer needed
 
 const inter = Inter({
   subsets: ['latin'],
@@ -17,10 +15,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Guerrilla Social Club | Creator-Led Creative Agency',
+    default: 'Guerrilla Social Club | Gaming. Harleys. Filth. One crew.',
     template: '%s | Guerrilla Social Club'
   },
-  description: 'Creator-led creative that actually moves culture. We build brands that Gen Z and Millennials actually want to follow.',
+  description: 'Gaming. Harleys. Filth. One crew. Such Grime gaming + Joe\'s Used Harleys. Join the digital punk clubhouse.',
   keywords: ['influencer marketing', 'creator marketing', 'social media', 'UGC', 'content creation'],
   authors: [{ name: 'Guerrilla Social Club' }],
   openGraph: {
@@ -66,12 +64,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
-        <Header />
-        <LiveCreatorBar />
-        <main className="min-h-screen pt-16">
-          {children}
-        </main>
-        <Footer />
+        {children}
         <script
           dangerouslySetInnerHTML={{
             __html: `
