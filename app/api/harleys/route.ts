@@ -1,5 +1,5 @@
 /**
- * API route to fetch live Harley listings from joesusedharleys.com
+ * API route to fetch live Harley listings from Airtable
  * Caches results for 5 minutes to avoid excessive requests
  */
 
@@ -15,13 +15,234 @@ interface Harley {
   description?: string;
 }
 
+interface AirtableRecord {
+  id: string;
+  fields: Record<string, unknown>;
+}
+
+interface AirtableResponse {
+  records: AirtableRecord[];
+}
+
 // Cache for bike listings
 let cachedBikes: Harley[] | null = null;
 let cacheTimestamp = 0;
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
+async function fetchBikesFromAirtable(): Promise<Harley[]> {
+  // Base ID and Table ID extracted from your Airtable URL
+  // URL: https://airtable.com/appxmWmvzuo3igvMI/tbllZuEMGdoV48WVg/...
+  const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID || 'appxmWmvzuo3igvMI';
+  const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
+  // Can use either table name or table ID (tbllZuEMGdoV48WVg)
+  const AIRTABLE_TABLE = process.env.AIRTABLE_TABLE_ID || process.env.AIRTABLE_TABLE_NAME || 'tbllZuEMGdoV48WVg';
+
+  if (!AIRTABLE_API_KEY) {
+    console.log('Airtable API key not configured');
+    return [];
+  }
+
+  try {
+    // Try with table ID first, then fallback to common table names
+    const tableOptions = [
+      AIRTABLE_TABLE, // Use provided table ID/name
+      'Inventory',
+      'Bikes',
+      'Vehicles',
+      'Harleys',
+    ];
+
+    for (const table of tableOptions) {
+      try {
+        const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(table)}`;
+        const response = await fetch(url, {
+          headers: {
+            'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          next: { revalidate: 300 }, // Cache for 5 minutes
+        });
+
+        if (response.ok) {
+          const data = await response.json() as AirtableResponse;
+          
+          if (data.records && data.records.length > 0) {
+            console.log(`✅ Successfully fetched ${data.records.length} bikes from Airtable table: ${table}`);
+            // Success! Process the records
+            return data.records.map((record) => {
+              const fields = record.fields;
+              
+              // Map Airtable fields to our Harley interface
+              // Adjust field names based on your Airtable column names
+              const name = typeof fields.Name === 'string' ? fields.Name :
+                           typeof fields['Bike Name'] === 'string' ? fields['Bike Name'] :
+                           typeof fields.Model === 'string' ? fields.Model :
+                           typeof fields.Title === 'string' ? fields.Title :
+                           'Harley-Davidson';
+              
+              // Extract year from name if it starts with a year (e.g., "2005 Harley-Davidson...")
+              let year = typeof fields.Year === 'number' ? fields.Year :
+                         typeof fields.Year === 'string' ? parseInt(fields.Year) :
+                         typeof fields['Model Year'] === 'number' ? fields['Model Year'] :
+                         typeof fields['Model Year'] === 'string' ? parseInt(fields['Model Year']) :
+                         undefined;
+              
+              // If year not found in fields, try to extract from name
+              if (!year && typeof name === 'string') {
+                const yearMatch = name.match(/^(\d{4})/);
+                if (yearMatch) {
+                  year = parseInt(yearMatch[1]);
+                }
+              }
+              
+              // Fallback to current year - 2 if still no year
+              if (!year || isNaN(year)) {
+                year = new Date().getFullYear() - 2;
+              }
+              
+              const model = typeof fields.Model === 'string' ? fields.Model :
+                            typeof fields['Model Name'] === 'string' ? fields['Model Name'] :
+                            name;
+              
+              const price = typeof fields.Price === 'number' ? fields.Price :
+                             typeof fields['Sale Price'] === 'number' ? fields['Sale Price'] :
+                             typeof fields.Price === 'string' ? parseInt(fields.Price.replace(/[^0-9]/g, '')) : 0;
+              
+              const image = typeof fields.Image === 'string' ? fields.Image :
+                             Array.isArray(fields.Images) && fields.Images.length > 0 ? String(fields.Images[0]) :
+                             typeof fields.Photo === 'string' ? fields.Photo :
+                             'https://files.catbox.moe/harley-placeholder.jpg';
+              
+              const mileage = typeof fields.Mileage === 'number' ? fields.Mileage :
+                               typeof fields.Miles === 'number' ? fields.Miles :
+                               typeof fields.Mileage === 'string' ? parseInt(fields.Mileage.replace(/[^0-9]/g, '')) : undefined;
+              
+              const url = typeof fields.URL === 'string' ? fields.URL :
+                           typeof fields.Link === 'string' ? fields.Link :
+                           `https://joesusedharleys.com`;
+              
+              return {
+                id: record.id,
+                name,
+                year,
+                model,
+                price,
+                image: Array.isArray(image) ? String(image[0]) : image,
+                mileage,
+                url,
+                description: typeof fields.Description === 'string' ? fields.Description : undefined,
+              };
+            });
+          }
+        } else if (response.status === 403) {
+          const errorText = await response.text().catch(() => '');
+          console.log(`❌ Access denied (403) for table: ${table}`);
+          console.log(`   Error details: ${errorText.substring(0, 200)}`);
+          console.log(`   Make sure your API token has access to base ${AIRTABLE_BASE_ID}`);
+          continue; // Try next table name
+        } else if (response.status === 404) {
+          console.log(`⚠️  Table not found (404): ${table}. Trying next option...`);
+          continue; // Try next table name
+        } else {
+          const errorText = await response.text().catch(() => '');
+          console.log(`❌ Airtable API error ${response.status} for table ${table}: ${errorText.substring(0, 200)}`);
+          throw new Error(`Airtable API error: ${response.status} for table ${table}`);
+        }
+      } catch (tableError) {
+        // Try next table option
+        if (table === tableOptions[tableOptions.length - 1]) {
+          // Last option failed, throw the error
+          throw tableError;
+        }
+        continue;
+      }
+    }
+    
+    // If we get here, none of the tables worked
+    return [];
+  } catch (error) {
+    console.error('Error fetching from Airtable:', error);
+    return [];
+  }
+}
+
 async function fetchBikesFromSite(): Promise<Harley[]> {
   try {
+    // Try multiple common API endpoint patterns for Next.js inventory
+    const apiEndpoints = [
+      'https://joesusedharleys.com/api/inventory',
+      'https://joesusedharleys.com/api/bikes',
+      'https://joesusedharleys.com/api/vehicles',
+      'https://joesusedharleys.com/inventory.json',
+      'https://joesusedharleys.com/data/inventory.json',
+      'https://joesusedharleys.com/data/bikes.json',
+    ];
+
+    for (const endpoint of apiEndpoints) {
+      try {
+        const apiResponse = await fetch(endpoint, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (compatible; GuerrillaSocialClub/1.0)',
+            'Accept': 'application/json',
+          },
+          next: { revalidate: 300 },
+        });
+        
+        if (apiResponse.ok) {
+          const apiData = await apiResponse.json();
+          
+          // Handle different response formats
+          let bikesArray: unknown[] = [];
+          if (Array.isArray(apiData)) {
+            bikesArray = apiData;
+          } else if (apiData && typeof apiData === 'object' && 'bikes' in apiData && Array.isArray(apiData.bikes)) {
+            bikesArray = apiData.bikes;
+          } else if (apiData && typeof apiData === 'object' && 'inventory' in apiData && Array.isArray(apiData.inventory)) {
+            bikesArray = apiData.inventory;
+          } else if (apiData && typeof apiData === 'object' && 'data' in apiData && Array.isArray(apiData.data)) {
+            bikesArray = apiData.data;
+          }
+          
+          if (bikesArray.length > 0) {
+            return bikesArray.map((bike, index) => {
+              const bikeData = bike as Record<string, unknown>;
+              return {
+                id: typeof bikeData.id === 'string' ? bikeData.id : 
+                    typeof bikeData._id === 'string' ? bikeData._id :
+                    `bike-${index}`,
+                name: typeof bikeData.name === 'string' ? bikeData.name : 
+                      typeof bikeData.title === 'string' ? bikeData.title :
+                      typeof bikeData.model === 'string' ? bikeData.model :
+                      'Harley-Davidson',
+                year: typeof bikeData.year === 'number' ? bikeData.year : 
+                      typeof bikeData.year === 'string' ? parseInt(bikeData.year) :
+                      new Date().getFullYear() - 2,
+                model: typeof bikeData.model === 'string' ? bikeData.model : 
+                       typeof bikeData.name === 'string' ? bikeData.name : '',
+                price: typeof bikeData.price === 'number' ? bikeData.price : 
+                       typeof bikeData.price === 'string' ? parseInt(bikeData.price.replace(/[^0-9]/g, '')) : 0,
+                image: typeof bikeData.image === 'string' ? bikeData.image : 
+                       typeof bikeData.photo === 'string' ? bikeData.photo :
+                       Array.isArray(bikeData.images) && bikeData.images.length > 0 ? String(bikeData.images[0]) :
+                       'https://files.catbox.moe/harley-placeholder.jpg',
+                mileage: typeof bikeData.mileage === 'number' ? bikeData.mileage : 
+                         typeof bikeData.miles === 'number' ? bikeData.miles :
+                         typeof bikeData.mileage === 'string' ? parseInt(bikeData.mileage.replace(/[^0-9]/g, '')) : undefined,
+                url: typeof bikeData.url === 'string' ? bikeData.url : 
+                     typeof bikeData.link === 'string' ? bikeData.link :
+                     typeof bikeData.slug === 'string' ? `https://joesusedharleys.com/${bikeData.slug}` :
+                     'https://joesusedharleys.com',
+              };
+            });
+          }
+        }
+      } catch {
+        // Try next endpoint
+        continue;
+      }
+    }
+
+    // Fallback to HTML parsing
     const response = await fetch('https://joesusedharleys.com', {
       headers: {
         'User-Agent': 'Mozilla/5.0 (compatible; GuerrillaSocialClub/1.0)',
@@ -139,6 +360,8 @@ async function fetchBikesFromSite(): Promise<Harley[]> {
     }
 
     // If still no bikes found, return empty array (will use fallback)
+    // Note: joesusedharleys.com is a Next.js app that loads inventory client-side
+    // HTML parsing won't work. Need API endpoint or manual data entry.
     return bikes.length > 0 ? bikes : [];
   } catch (error) {
     console.error('Error fetching bikes from joesusedharleys.com:', error);
@@ -154,15 +377,35 @@ export async function GET() {
       return Response.json({ bikes: cachedBikes, cached: true });
     }
 
-    // Fetch fresh data
-    const bikes = await fetchBikesFromSite();
+    // Try Airtable first (if configured)
+    let bikes = await fetchBikesFromAirtable();
+    
+    // If Airtable didn't return bikes, try other methods
+    if (bikes.length === 0) {
+      bikes = await fetchBikesFromSite();
+    }
     
     // Update cache
     cachedBikes = bikes;
     cacheTimestamp = now;
 
-    // If no bikes found, return fallback mock data
+    // If no bikes found, try to load from local data file
     if (bikes.length === 0) {
+      try {
+        const fs = await import('fs/promises');
+        const path = await import('path');
+        const dataPath = path.join(process.cwd(), 'data', 'harleys.json');
+        const fileData = await fs.readFile(dataPath, 'utf-8');
+        const localBikes = JSON.parse(fileData) as Harley[];
+        
+        if (localBikes.length > 0) {
+          return Response.json({ bikes: localBikes, cached: false, source: 'local' });
+        }
+      } catch {
+        // If file doesn't exist or can't be read, use hardcoded fallback
+      }
+      
+      // Hardcoded fallback
       const fallbackBikes: Harley[] = [
         {
           id: '1',
