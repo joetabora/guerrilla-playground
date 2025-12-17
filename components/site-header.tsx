@@ -1,6 +1,5 @@
 "use client";
 
-import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
@@ -10,12 +9,12 @@ import { useCart } from "@/components/providers/cart-provider";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/config/site";
 
-const mainNav: { href: Route; label: string }[] = [
+const mainNav = [
   { href: "/collection/tech-gadgets", label: "Tech" },
   { href: "/collection/home-decor", label: "Neon Home" },
   { href: "/collection/streetwear", label: "Streetwear" },
   { href: "/blog", label: "Blog" },
-];
+] as const;
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -62,7 +61,7 @@ export function SiteHeader() {
             return (
               <Link
                 key={item.href}
-                href={item.href}
+                href={item.href as any}
                 className={cn(
                   "transition-colors hover:text-primary",
                   active ? "text-primary" : "text-muted-foreground",
@@ -131,7 +130,7 @@ export function SiteHeader() {
               return (
                 <Link
                   key={item.href}
-                  href={item.href}
+                  href={item.href as any}
                   className={cn(
                     "py-1 text-muted-foreground hover:text-primary",
                     active && "text-primary",
