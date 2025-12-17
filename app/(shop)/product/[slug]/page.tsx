@@ -41,7 +41,6 @@ export async function generateMetadata({
       title: product.seo.title,
       description: product.seo.description,
       url: `/product/${product.slug}`,
-      type: "product",
       images: product.images.map((img) => ({ url: img.src, alt: img.alt })),
     },
   };
