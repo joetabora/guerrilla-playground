@@ -1,275 +1,48 @@
-/*
- * Global styles for Guerrilla Social Club (Option D).
- * Edgy streetwear aesthetic with kinetic typography and bold colors.
- */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --color-bg: #000000;
-  --color-ink: #0a0a0a;
-  --color-magenta: #FF2D95;
-  --color-lime: #A6FF00;
-  --color-cyan: #00FFFF;
-  --color-orange: #FF6600;
-  --color-white: #FFFFFF;
-  --grain-opacity: 0.08;
-  
-  /* Toxico aesthetic colors */
-  --neon-cyan: #00FFFF;
-  --neon-orange: #FF6600;
-  --toxic-black: #000000;
-  --distressed-gray: #1a1a1a;
+  --background: 5 8% 4%;
+  --foreground: 210 20% 98%;
+  --muted: 215 28% 17%;
+  --muted-foreground: 215 15% 65%;
+  --border: 215 28% 17%;
+  --input: 215 28% 17%;
+  --ring: 16 100% 58%;
+  --radius-lg: 1.25rem;
+  --radius-md: 0.75rem;
+  --radius-sm: 0.5rem;
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  @apply border-border;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  background-color: var(--color-bg);
-  color: var(--color-white);
-  font-family: var(--font-inter), 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  min-height: 100vh;
-  position: relative;
-  overflow-x: hidden;
+  @apply bg-background text-foreground antialiased;
 }
 
-/* Distressed grain texture overlay - Toxico style */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: var(--grain-opacity);
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: overlay;
+.bg-noise-soft {
+  background-image:
+    radial-gradient(circle at top left, rgba(255, 91, 46, 0.18), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(0, 224, 255, 0.18), transparent 55%),
+    radial-gradient(circle at center, rgba(255, 46, 184, 0.12), transparent 60%);
+}
+
+.container {
+  @apply mx-auto max-w-6xl px-4;
+}
+
+::selection {
+  background-color: rgba(255, 91, 46, 0.4);
+  color: #f9fafb;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
-  transition: all 0.2s ease;
+  @apply transition-colors;
 }
 
-/* Kinetic typography utilities */
-@layer utilities {
-  .text-kinetic {
-    display: inline-block;
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    line-height: 0.9;
-  }
-
-  .text-sticker {
-    transform: rotate(-2deg);
-    display: inline-block;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-  }
-
-  .sticker-border {
-    clip-path: polygon(
-      0% 8%,
-      8% 0%,
-      92% 0%,
-      100% 8%,
-      100% 92%,
-      92% 100%,
-      8% 100%,
-      0% 92%
-    );
-  }
-
-  .torn-edge {
-    mask-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L100,5 L95,100 L0,95 Z' fill='black'/%3E%3C/svg%3E");
-    mask-size: 100% 100%;
-    mask-repeat: no-repeat;
-  }
-}
-
-/* Focus states for accessibility */
-:focus-visible {
-  outline: 2px solid var(--color-cyan);
-  outline-offset: 4px;
-  border-radius: 2px;
-}
-
-/* Smooth scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-ink);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-magenta);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-lime);
-}
-
-/* Micro-interaction utilities */
-.ripple-effect {
-  position: relative;
-  overflow: hidden;
-}
-
-.fade-in-on-scroll {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fade-in-on-scroll.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Neon glow effects */
-.neon-glow-magenta {
-  box-shadow: 0 0 20px rgba(255, 45, 149, 0.5),
-              0 0 40px rgba(255, 45, 149, 0.3),
-              0 0 60px rgba(255, 45, 149, 0.1);
-}
-
-.neon-glow-lime {
-  box-shadow: 0 0 20px rgba(166, 255, 0, 0.5),
-              0 0 40px rgba(166, 255, 0, 0.3),
-              0 0 60px rgba(166, 255, 0, 0.1);
-}
-
-.neon-glow-cyan {
-  box-shadow: 0 0 20px rgba(0, 255, 214, 0.5),
-              0 0 40px rgba(0, 255, 214, 0.3),
-              0 0 60px rgba(0, 255, 214, 0.1);
-}
-
-/* GSAP Page Transitions */
-.page-transition {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.page-transition-enter {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-/* Glassmorphism */
-.glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Enhanced Typography */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 900;
-  letter-spacing: -0.02em;
-}
-
-/* Smooth Scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* 3D Flip Card Styles */
-.perspective-1000 {
-  perspective: 1000px;
-}
-
-.preserve-3d {
-  transform-style: preserve-3d;
-}
-
-.backface-hidden {
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-/* Glitch Effect */
-.glitch-container {
-  position: relative;
-}
-
-.glitch-container::before,
-.glitch-container::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s;
-}
-
-.glitch-container:hover::before {
-  opacity: 0.1;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(0, 255, 255, 0.5) 50%,
-    transparent 100%
-  );
-  animation: glitch-scan 0.5s linear;
-}
-
-.glitch-container:hover::after {
-  opacity: 0.1;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 102, 0, 0.5) 50%,
-    transparent 100%
-  );
-  animation: glitch-scan 0.5s linear 0.1s;
-}
-
-@keyframes glitch-scan {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-/* TikTok Scroll Animation */
-@keyframes scroll {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-50%);
-  }
-}
-
-.animate-scroll {
-  animation: scroll 30s linear infinite;
-}
-
-.animate-scroll:hover {
-  animation-play-state: paused;
+button {
+  @apply outline-none;
 }

@@ -1,25 +1,10 @@
 {
   "name": "Guerrilla Social Club",
   "short_name": "GSC",
-  "description": "Influencer marketing agency platform",
   "start_url": "/",
-  "display": "standalone",
-  "background_color": "#1a1a1a",
-  "theme_color": "#FF2D95",
-  "orientation": "portrait-primary",
-  "icons": [
-    {
-      "src": "/brand-logo.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/brand-logo.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ]
+  "display": "minimal-ui",
+  "background_color": "#050509",
+  "theme_color": "#ff5b2e",
+  "description": "Guerrilla-grade gadgets, streetwear, and neon home gear for creators and night owls.",
+  "icons": []
 }
-
