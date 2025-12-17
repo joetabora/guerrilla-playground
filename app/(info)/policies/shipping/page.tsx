@@ -57,8 +57,8 @@ export default function ShippingPolicyPage() {
         <section className="space-y-2">
           <h2 className="font-semibold text-foreground">Tracking</h2>
           <p>
-            You\'ll receive a tracking link via email as soon as your order is
-            scanned into the carrier\'s system. Tracking updates may take 24–72
+            You’ll receive a tracking link via email as soon as your order is
+            scanned into the carrier’s system. Tracking updates may take 24–72
             hours to appear after you receive the link.
           </p>
         </section>
@@ -67,7 +67,7 @@ export default function ShippingPolicyPage() {
           <h2 className="font-semibold text-foreground">Customs & duties</h2>
           <p>
             For international orders, local customs fees, import duties, or taxes
-            may apply and are the responsibility of the customer. We don\'t
+            may apply and are the responsibility of the customer. We don’t
             control these charges.
           </p>
         </section>

@@ -34,22 +34,22 @@ export default function AboutPage() {
                 sessions, budget constraints, and chaotic city apartments.
               </p>
               <p>
-                Instead of trying to look like a giant warehouse brand, we\'re
+                Instead of trying to look like a giant warehouse brand, we’re
                 honest about what we are: a curated dropshipping storefront that
                 routes orders through vetted AliExpress and global suppliers using
                 tools like DSers. That means we can move quickly, test more
                 products, and keep only the ones that earn a permanent spot in a
-                real creator\'s setup.
+                real creator’s setup.
               </p>
               <p>
                 Every product you see here has gone through a simple but strict
                 process: sample orders, quality checks, shipping tests, and
                 real-world use. If packaging feels sketchy, tracking is unreliable,
-                or quality doesn\'t match the listing, it doesn\'t go live.
+                or quality doesn’t match the listing, it doesn’t go live.
               </p>
               <p>
-                We\'re not trying to sell you on \"get rich quick\" gadgets or
-                random TikTok trends. We\'re here for the artists, editors,
+                We’re not trying to sell you on “get rich quick” gadgets or
+                random TikTok trends. We’re here for the artists, editors,
                 streamers, DJs, and night-shift builders who want their setup to
                 hit as hard as their work ethic.
               </p>
@@ -62,8 +62,8 @@ export default function AboutPage() {
                 </p>
                 <ul className="mt-3 list-disc space-y-2 pl-4 text-xs">
                   <li>Clear expectations on shipping windows and tracking.</li>
-                  <li>No fake \"US warehouse\" stories if it isn\'t true.</li>
-                  <li>Curated products we\'d recommend to friends, not everything we can list.</li>
+                  <li>No fake “US warehouse” stories if it isn’t true.</li>
+                  <li>Curated products we’d recommend to friends, not everything we can list.</li>
                   <li>Fast support from a small team that actually reads your messages.</li>
                 </ul>
               </div>

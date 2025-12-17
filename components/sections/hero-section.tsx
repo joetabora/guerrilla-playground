@@ -96,7 +96,7 @@ export function HeroSection() {
                 </p>
                 <p className="text-xs text-muted-foreground">
                   No endless scrolling, no sketchy listings. Just battle-tested
-                  pieces we\'ve already vetted.
+                  pieces we’ve already vetted.
                 </p>
               </div>
 

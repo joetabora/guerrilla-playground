@@ -30,7 +30,7 @@ export default function ContactPage() {
             </h1>
             <p className="text-sm text-muted-foreground">
               Questions about shipping, returns, or a specific product? Drop a
-              note and we\'ll usually respond within one business day.
+              note and we’ll usually respond within one business day.
             </p>
           </div>
 
@@ -56,7 +56,7 @@ export default function ContactPage() {
                   <Textarea
                     id="message"
                     required
-                    placeholder="Tell us what you\'re working on and how we can help. Order numbers help us respond faster."
+                    placeholder="Tell us what you’re working on and how we can help. Order numbers help us respond faster."
                   />
                 </div>
                 <Button
@@ -69,9 +69,9 @@ export default function ContactPage() {
               </form>
 
               <p className="text-[11px] text-muted-foreground">
-                This form doesn\'t send emails by itself in this starter.
+                This form doesn’t send emails by itself in this starter.
                 Connect it to a service like Formspree, Resend, or a simple API
-                route when you\'re ready.
+                route when you’re ready.
               </p>
             </CardContent>
           </Card>
@@ -107,7 +107,7 @@ export default function ContactPage() {
                   first for estimates.
                 </li>
                 <li>
-                  If your tracking hasn\'t updated in 7+ business days, reply
+                  If your tracking hasn’t updated in 7+ business days, reply
                   here with your order number.
                 </li>
                 <li>

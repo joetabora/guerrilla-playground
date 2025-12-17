@@ -169,7 +169,7 @@ export default function CartPage() {
                   Boost your AOV the honest way
                 </p>
                 <p>
-                  We don\'t do fake timers or fake scarcity. Instead, we bundle
+                  We don’t do fake timers or fake scarcity. Instead, we bundle
                   pieces that actually work better together.
                 </p>
                 <p>

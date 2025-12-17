@@ -52,7 +52,7 @@ export default function PrivacyPolicyPage() {
           <h2 className="font-semibold text-foreground">Your rights</h2>
           <p>
             You can request access to, correction of, or deletion of your
-            personal data where applicable. Contact us if you\'d like to exercise
+            personal data where applicable. Contact us if you’d like to exercise
             any of these rights.
           </p>
         </section>

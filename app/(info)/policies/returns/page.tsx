@@ -24,7 +24,7 @@ export default function ReturnsPolicyPage() {
           <p>
             If your order arrives damaged, defective, or noticeably different
             from what was advertised, contact us within 7 days of delivery with
-            clear photos and your order number. We\'ll work with our suppliers to
+            clear photos and your order number. We’ll work with our suppliers to
             offer a replacement or refund where appropriate.
           </p>
         </section>
@@ -34,7 +34,7 @@ export default function ReturnsPolicyPage() {
           <p>
             Because many items ship directly from global partners, change-of-mind
             returns may not always be possible or may require return shipping to
-            an international warehouse. Reach out to us and we\'ll outline the
+            an international warehouse. Reach out to us and we’ll outline the
             options for your specific order.
           </p>
         </section>
@@ -54,7 +54,7 @@ export default function ReturnsPolicyPage() {
           <h2 className="font-semibold text-foreground">How to request a return</h2>
           <p>
             Email us with your order number, reason for return, and clear photos
-            where relevant. We\'ll respond with next steps, including any
+            where relevant. We’ll respond with next steps, including any
             applicable return address or store credit options.
           </p>
         </section>

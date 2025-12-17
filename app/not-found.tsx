@@ -9,7 +9,7 @@ export default function NotFound() {
           This page went off-grid.
         </h1>
         <p className="text-sm text-muted-foreground">
-          The link you followed doesn\'t exist or has moved. Head back to the
+          The link you followed doesn’t exist or has moved. Head back to the
           storefront and keep building your setup.
         </p>
         <a

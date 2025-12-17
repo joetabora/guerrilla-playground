@@ -20,7 +20,7 @@ export function CollectionsGridSection() {
               Collections for how you actually live
             </h2>
             <p className="mt-1 max-w-xl text-sm text-muted-foreground">
-              Whether you\'re dialing in a desk, a fit, or a full room, start with
+              Whether you’re dialing in a desk, a fit, or a full room, start with
               a collection that matches your energy.
             </p>
           </div>

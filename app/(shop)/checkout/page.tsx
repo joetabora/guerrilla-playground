@@ -35,8 +35,8 @@ export default function CheckoutPage() {
               Secure checkout
             </h1>
             <p className="text-sm text-muted-foreground">
-              We\'ll route your order through our vetted suppliers and send
-              tracking as soon as it\'s live.
+              We’ll route your order through our vetted suppliers and send
+              tracking as soon as it’s live.
             </p>
           </div>
 
@@ -105,7 +105,7 @@ export default function CheckoutPage() {
                   </Button>
                 </div>
                 <p className="text-[11px] text-muted-foreground">
-                  You won\'t be charged in this demo. In a real deployment, this
+                  You won’t be charged in this demo. In a real deployment, this
                   step would create a checkout session via your backend.
                 </p>
               </CardContent>

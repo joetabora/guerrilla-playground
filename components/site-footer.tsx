@@ -15,7 +15,7 @@ export function SiteFooter() {
             </p>
             <p className="mt-2 max-w-sm text-sm text-muted-foreground">
               Dropshipping done the right way: curated products, vetted suppliers,
-              clear shipping, and gear we\'d actually run in our own setups.
+              clear shipping, and gear we’d actually run in our own setups.
             </p>
           </div>
 
