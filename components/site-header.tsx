@@ -1,5 +1,6 @@
 "use client";
 
+import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
@@ -9,7 +10,7 @@ import { useCart } from "@/components/providers/cart-provider";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/config/site";
 
-const mainNav = [
+const mainNav: { href: Route; label: string }[] = [
   { href: "/collection/tech-gadgets", label: "Tech" },
   { href: "/collection/home-decor", label: "Neon Home" },
   { href: "/collection/streetwear", label: "Streetwear" },
