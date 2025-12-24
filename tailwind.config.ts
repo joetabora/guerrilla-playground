@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
 
 const config: Config = {
   darkMode: ["class"],
@@ -13,52 +12,56 @@ const config: Config = {
       center: true,
       padding: "1.5rem",
       screens: {
-        "2xl": "1280px",
+        "2xl": "1400px",
       },
     },
     extend: {
       colors: {
-        background: "#050509",
-        foreground: "#f9fafb",
-        muted: {
-          DEFAULT: "#111827",
-          foreground: "#9ca3af",
-        },
-        border: "#1f2933",
-        input: "#111827",
-        ring: "#ff5b2e",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#ff5b2e", // neon orange
-          foreground: "#050509",
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "#00e0ff", // neon cyan
-          foreground: "#050509",
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
         accent: {
-          DEFAULT: "#ff2eb8", // hot pink
-          foreground: "#050509",
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
         },
-        destructive: {
-          DEFAULT: "#ef4444",
-          foreground: "#f9fafb",
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
       },
       borderRadius: {
-        lg: "1.25rem",
-        md: "0.75rem",
-        sm: "0.5rem",
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
-        display: ["var(--font-display)", ...fontFamily.sans],
+        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "monospace"],
+        serif: ["var(--font-serif)", "serif"],
       },
-      boxShadow: {
-        glow: "0 0 40px rgba(255, 91, 46, 0.45)",
+      animation: {
+        "float": "float 6s ease-in-out infinite",
+        "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
-      backgroundImage: {
-        "noise-soft":
-          "radial-gradient(circle at top, rgba(255,91,46,0.18), transparent 55%), radial-gradient(circle at bottom, rgba(0,224,255,0.18), transparent 55%), radial-gradient(circle at left, rgba(255,46,184,0.18), transparent 55%)",
+      keyframes: {
+        float: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
       },
     },
   },
