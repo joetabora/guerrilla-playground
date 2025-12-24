@@ -35,6 +35,18 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-6">
           <Link 
+            href="/about"
+            className="text-sm font-mono text-muted-foreground hover:text-primary transition-colors hidden md:inline"
+          >
+            ABOUT
+          </Link>
+          <Link 
+            href="/faq"
+            className="text-sm font-mono text-muted-foreground hover:text-secondary transition-colors hidden md:inline"
+          >
+            FAQ
+          </Link>
+          <Link 
             href="/evolve"
             className="text-sm font-mono text-muted-foreground hover:text-primary transition-colors hidden sm:inline"
           >
