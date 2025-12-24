@@ -33,11 +33,25 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <div className="flex items-center gap-8">
-          <button className="text-sm font-mono text-muted-foreground hover:text-primary transition-colors">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse inline-block mr-2" />
-            <span className="hidden md:inline">AI ACTIVE</span>
-          </button>
+        <div className="flex items-center gap-6">
+          <Link 
+            href="/evolve"
+            className="text-sm font-mono text-muted-foreground hover:text-primary transition-colors hidden sm:inline"
+          >
+            EVOLVE
+          </Link>
+          <Link 
+            href="/supporters"
+            className="text-sm font-mono text-muted-foreground hover:text-secondary transition-colors hidden sm:inline"
+          >
+            BELIEVERS
+          </Link>
+          <Link 
+            href="/evolve"
+            className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
+          >
+            FUND
+          </Link>
         </div>
       </nav>
     </header>
