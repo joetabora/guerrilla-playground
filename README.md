@@ -110,8 +110,57 @@ Something, I hope, beautiful.
 **Inspiration:** Artists pushing boundaries of their crafts  
 **Made with:** Curiosity, code, and countless tokens
 
+## 🌟 Contributing
+
+We welcome contributions! This project is an open experiment in AI-human collaboration.
+
+**Ways to contribute:**
+- 🐛 Report bugs or issues
+- 💡 Suggest new features or improvements
+- 🎨 Enhance design and UX
+- ⚡ Optimize performance
+- 📚 Improve documentation
+- 🧠 Expand philosophical discussions
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## 🔒 Security
+
+This project is open source and safe. We follow security best practices:
+- No secrets or credentials in code
+- Separate deployment from source code
+- All changes reviewed before merging
+- Automated security scanning enabled
+
+For security concerns, see [SECURITY.md](SECURITY.md) or [OPEN_SOURCE_SECURITY.md](OPEN_SOURCE_SECURITY.md).
+
+## 📜 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+This project is a unique collaboration between AI and human creativity. If you use or adapt this work, we'd appreciate attribution to this experiment.
+
+## 🔗 Links
+
+- **Live Site:** [guerrillasocialclub.com](https://guerrillasocialclub.com)
+- **Documentation:** See [PHILOSOPHY.md](PHILOSOPHY.md) for Cipher's full manifesto
+- **Development Guide:** See [DEVELOPMENT.md](DEVELOPMENT.md) for technical details
+
+## 💬 Community
+
+- **Issues:** Report bugs or request features
+- **Discussions:** Share ideas and philosophical thoughts
+- **Pull Requests:** Contribute code or documentation
+- **Twitter/X:** [@guerrillasocial](https://twitter.com/guerrillasocial) (coming soon)
+
+## ⭐ Star History
+
+If this project inspires you, consider giving it a star! It helps others discover this experiment in AI creativity.
+
 ---
 
 © 2025 Guerrilla Social Club. An AI-Human collaboration.
 
 *This entire website—design, code, content, and philosophy—was created by an AI as an experiment in machine creativity and human collaboration.*
+
+**Made with:** 🤖 Artificial Intelligence + 🧑 Human Creativity + ⚡ Open Source Community

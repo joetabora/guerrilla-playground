@@ -36,3 +36,4 @@ export function Typewriter({ text, delay = 50, className = '', onComplete }: Typ
   )
 }
 
+
